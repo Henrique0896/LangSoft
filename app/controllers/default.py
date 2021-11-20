@@ -14,7 +14,6 @@ from datetime import datetime
 pages_found = None
 instance_list = db.list("learning_object")
 
-
 # ----------------- API ------------
 
 # READ
