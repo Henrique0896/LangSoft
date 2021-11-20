@@ -13,6 +13,8 @@ from datetime import datetime
 
 pages_found = None
 instance_list = db.list("learning_object")
+db_logs_list = db.list("logs")
+
 
 # ----------------- API ------------
 
@@ -353,6 +355,23 @@ def editarGeral(pageNumber):
         
 
     return render_template('update/geral.html', page=page, form=form, pageNumber=pageNumber)
+
+
+# Mostrar histórico
+@app.route("/logs", methods=['GET'])
+@login_required
+def logs():
+    global db_logs_list
+    db_logs_list = db.list("logs")
+    if len(list(db_logs_list)) != 0:
+        i = 0
+        logs = []
+        for log in db_logs_list:
+            logs.append([log, str(i)])
+            i = i+1
+    else:
+        logs = None
+    return render_template('logs.html', logs=logs)
 
 
 # Mostrar Documentação da API
