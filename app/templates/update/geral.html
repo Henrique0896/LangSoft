@@ -1,0 +1,581 @@
+{% extends 'base.html' %}
+
+{% block title %} WikiLOM - {{page['geral']['titulo']}} {% endblock %}
+
+{% block main %}
+
+
+<div class="container-fluid" style="margin: auto">
+
+    <form action="" method="POST">
+        {{ form.csrf_token }}
+
+
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+
+            <h3 class="h3 mb-0 text-gray-800">{{page['geral']['titulo']}}</h3>
+
+            <!-- Botão Salvar -->
+            <div style="margin-bottom: 30px; margin-left: 15px ;">
+                <button type="submit" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Salvar</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="d-sm-flex justify-content-between" style="margin-left: 15px; margin-top: 10px;">
+                    <h4 class="m-0 font-weight-bold text-primary">Geral</h4>
+
+                    <!-- Botão Minimizar -->
+                    <div id="minimizeGeral" style=" margin-top: -10px ;">
+                        <a class="btn btn-info btn-circle">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-compress"></i>
+                            </span>
+
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="geral" class="card-body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm">
+
+                            <div>
+                                <label>Título:</label>
+                                {{form.titulo(class="form-control")}}
+                                <label>Idioma:</label>
+                                {{form.idioma(class="form-control")}}
+                                <label>Descrição:</label>
+                                {{form.descricao(class="form-control")}}
+                                <label>Palavras Chave:</label>
+                                {{form.palavrasChave(class="form-control")}}
+                                <label>Cobertura:</label>
+                                {{form.cobertura(class="form-control")}}
+                                <label>Estrutura:</label>
+                                {{form.estrutura(class="form-control")}}
+                                <label>Nível de Agregação:</label>
+                                {{form.nivelDeAgregacao(class="form-control")}}
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="d-sm-flex justify-content-between" style="margin-left: 15px; margin-top: 10px;">
+                    <h4 class="m-0 font-weight-bold text-primary">Ciclo de Vida</h4>
+
+                    <!-- Botão Minimizar -->
+                    <div id="minimizeCiclo" style=" margin-top: -10px ;">
+                        <a class="btn btn-info btn-circle">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-compress"></i>
+                            </span>
+
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="ciclo" class="card-body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div>
+                                <label>1. Versão:</label>
+                                {{form.versao(class="form-control")}}
+                                <label>2. Status::</label>
+                                {{form.status(class="form-control")}}
+                                <p>3. Contribuinte:</p>
+                                <label>3.1 Entidade:</label>
+                                {{form.entidade(class="form-control")}}
+                                <label>3.2 Data</label>
+                                {{form.data(class="form-control")}}
+                                <label>3.3 Papel:</label>
+                                {{form.papel(class="form-control")}}
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="d-sm-flex justify-content-between" style="margin-left: 15px; margin-top: 10px;">
+                    <h4 class="m-0 font-weight-bold text-primary">Meta Metadados</h4>
+
+                    <!-- Botão Minimizar -->
+                    <div id="minimizeMeta" style=" margin-top: -10px ;">
+                        <a class="btn btn-info btn-circle">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-compress"></i>
+                            </span>
+
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="meta" class="card-body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div>
+                                <p>1. Identificador:</p>
+                                <label>1.1 Catalogo:</label>
+                                {{form.i_catalogo(class="form-control")}}
+                                <label>1.2 Entrada:</label>
+                                {{form.i_entrada(class="form-control")}}
+                                <p>2. Contribuinte:</p>
+                                <label>2.1 Entidade:</label>
+                                {{form.c_entidade(class="form-control")}}
+                                <label>2.2 Data</label>
+                                {{form.c_data(class="form-control")}}
+                                <label>2.3 Papel:</label>
+                                {{form.c_papel(class="form-control")}}
+                                <label>3 Esquema de Metadados:</label>
+                                {{form.esquema_de_metadados(class="form-control")}}
+                                <label>5 Idioma:</label>
+                                {{form.m_idioma(class="form-control")}}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="card shadow mb-4">
+
+            <div class="card-header py-3">
+                <div class="d-sm-flex justify-content-between" style="margin-left: 15px; margin-top: 10px;">
+                    <h4 class="m-0 font-weight-bold text-primary">Meta Técnicos</h4>
+
+                    <!-- Botão Minimizar -->
+                    <div id="minimizeMetadados" style=" margin-top: -10px ;">
+                        <a class="btn btn-info btn-circle">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-compress"></i>
+                            </span>
+
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="metadados" class="card-body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div>
+                                <label>1. Formato:</label>
+                                {{form.m_formato(class="form-control")}}
+                                <label>2. Tamanho:</label>
+                                {{form.m_tamanho(class="form-control")}}
+                                <label>3. Localização:</label>
+                                {{form.m_localizacao(class="form-control")}}
+                                <label>4. Requisitos:</label>
+                                {{form.m_requisitos(class="form-control")}}
+                                <label>5. Observações de Instalações:</label>
+                                {{form.m_observacoes_de_Instalacoes(class="form-control")}}
+                                <label>6. Outros Requisitos de Sistema:</label>
+                                {{form.m_outros_requisitos_de_sistema(class="form-control")}}
+                                <label>7. Duração:</label>
+                                {{form.m_duracao(class="form-control")}}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="d-sm-flex justify-content-between" style="margin-left: 15px; margin-top: 10px;">
+                    <h4 class="m-0 font-weight-bold text-primary">Aspectos Educacionais</h4>
+
+                    <!-- Botão Minimizar -->
+                    <div id="minimizeAspectos" style=" margin-top: -10px ;">
+                        <a class="btn btn-info btn-circle">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-compress"></i>
+                            </span>
+
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="aspectos" class="card-body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm">
+                            
+                            <div>
+                                <label>1. Tipo de iteratividade:</label>
+                                {{form.ae_tipo_de_iteratividade(class="form-control")}}
+                                <label>2. Tipo de recurso de aprendizado:</label>
+                                {{form.ae_tipo_de_recurso_de_aprendizado(class="form-control")}}
+                                <label>3. Nível de iteratividade:</label>
+                                {{form.ae_nivel_de_interatividade(class="form-control")}}
+                                <label>4. Densidade Semantica:</label>
+                                {{form.ae_densidade_semantica(class="form-control")}}
+                                <label>5. Usuário final:</label>
+                                {{form.ae_usuario_final(class="form-control")}}
+                                <label>6. Contexto de aprendizagem:</label>
+                                {{form.ae_contexto_de_aprendizagem(class="form-control")}}
+                                <label>7. Idade Recomendada:</label>
+                                {{form.ae_idade_recomendada(class="form-control")}}
+                                <label>8. Grau de Dificuldade:</label>
+                                {{form.ae_grau_de_dificuldade(class="form-control")}}
+                                <label>9. Tempo de Aprendizado:</label>
+                                {{form.ae_tempo_de_aprendizado(class="form-control")}}
+                                <label>10. Descrição:</label>
+                                {{form.ae_descricao(class="form-control")}}
+                                <label>11. Linguagem:</label>
+                                {{form.ae_linguagem(class="form-control")}}
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="d-sm-flex justify-content-between" style="margin-left: 15px; margin-top: 10px;">
+                    <h4 class="m-0 font-weight-bold text-primary">Direitos</h4>
+
+                    <!-- Botão Minimizar -->
+                    <div id="minimizeDireitos" style=" margin-top: -10px ;">
+                        <a class="btn btn-info btn-circle">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-compress"></i>
+                            </span>
+
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="direitos" class="card-body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div>
+                                <label>1. Custo:</label>
+                                {{form.d_custo(class="form-control")}}
+                                <label>2. Direitos Autorais:</label>
+                                {{form.d_direitos_autorais(class="form-control")}}
+                                <label>3. Descrição:</label>
+                                {{form.d_descricao(class="form-control")}}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="d-sm-flex justify-content-between" style="margin-left: 15px; margin-top: 10px;">
+                    <h4 class="m-0 font-weight-bold text-primary">Relações</h4>
+
+                    <!-- Botão Minimizar -->
+                    <div id="minimizeRelacoes" style=" margin-top: -10px ;">
+                        <a class="btn btn-info btn-circle">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-compress"></i>
+                            </span>
+
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="relacoes" class="card-body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div>
+                                <label>1. Gênero:</label>
+                                {{form.r_genero(class="form-control")}}
+                                <p>2. Recurso</p>
+                                <label>2.1 Referências:</label>
+                                {{form.r_recurso_referencias(class="form-control")}}
+                                <label>2.2 Links Externos:</label>
+                                {{form.r_recurso_links_externos(class="form-control")}}
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="d-sm-flex justify-content-between" style="margin-left: 15px; margin-top: 10px;">
+                    <h4 class="m-0 font-weight-bold text-primary">Classificação</h4>
+
+                    <!-- Botão Minimizar -->
+                    <div id="minimizeClassificacao" style=" margin-top: -10px ;">
+                        <a class="btn btn-info btn-circle">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-compress"></i>
+                            </span>
+
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="classificacao" class="card-body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div>
+                                <label>1. Finalidade:</label>
+                                {{form.c_finalidade(class="form-control")}}
+                                <label>2. Diretório:</label>
+                                {{form.c_diretorio(class="form-control")}}
+                                <label>3. Descrição:</label>
+                                {{form.c_descricao(class="form-control")}}
+                                <label>4. Palavra Chave:</label>
+                                {{form.c_palavra_chave(class="form-control")}}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="d-sm-flex justify-content-between" style="margin-left: 15px; margin-top: 10px;">
+                    <h4 class="m-0 font-weight-bold text-primary">Conteúdo</h4>
+
+                    <!-- Botão Minimizar -->
+                    <div id="minimizeConteudo" style=" margin-top: -10px ;">
+                        <a class="btn btn-info btn-circle">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-compress"></i>
+                            </span>
+
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="conteudo" class="card-body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm">
+                            <labe>1. Data:</labe>
+                            {{form.cont_data(class="form-control")}}
+                            <labe>2. Entidade:</labe>
+                            {{form.cont_entidade(class="form-control")}}
+                            <labe>3. Imagens:</labe>
+                            {{form.cont_imagens(class="form-control")}}
+                            <labe>4. Comentários:</labe>
+                            {{form.cont_comentarios(class="form-control")}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+        <a style="margin-top: 20px;" href="/" class="btn btn-info btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-home"></i>
+            </span>
+            <span class="text">Voltar</span>
+        </a>
+
+
+
+        <div style="padding: 220px;"></div>
+
+
+    </form>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        $("#minimizeGeral").click(
+            function () {
+                if ($("#geral").is(":visible")) {
+                    $("#geral").css("display", "none")
+                } else {
+                    $("#geral").css("display", "block")
+                }
+            })
+        $("#minimizeCiclo").click(
+            function () {
+                if ($("#ciclo").is(":visible")) {
+                    $("#ciclo").css("display", "none")
+                } else {
+                    $("#ciclo").css("display", "block")
+                }
+            })
+        $("#minimizeMeta").click(
+            function () {
+                if ($("#meta").is(":visible")) {
+                    $("#meta").css("display", "none")
+                } else {
+                    $("#meta").css("display", "block")
+                }
+            })
+        $("#minimizeMetadados").click(
+            function () {
+                if ($("#metadados").is(":visible")) {
+                    $("#metadados").css("display", "none")
+                } else {
+                    $("#metadados").css("display", "block")
+                }
+            })
+        $("#minimizeAspectos").click(
+            function () {
+                if ($("#aspectos").is(":visible")) {
+                    $("#aspectos").css("display", "none")
+                } else {
+                    $("#aspectos").css("display", "block")
+                }
+            })
+        $("#minimizeDireitos").click(
+            function () {
+                if ($("#direitos").is(":visible")) {
+                    $("#direitos").css("display", "none")
+                } else {
+                    $("#direitos").css("display", "block")
+                }
+            })
+        $("#minimizeRelacoes").click(
+            function () {
+                if ($("#relacoes").is(":visible")) {
+                    $("#relacoes").css("display", "none")
+                } else {
+                    $("#relacoes").css("display", "block")
+                }
+            })
+        $("#minimizeClassificacao").click(
+            function () {
+                if ($("#classificacao").is(":visible")) {
+                    $("#classificacao").css("display", "none")
+                } else {
+                    $("#classificacao").css("display", "block")
+                }
+            })
+        $("#minimizeConteudo").click(
+            function () {
+                if ($("#conteudo").is(":visible")) {
+                    $("#conteudo").css("display", "none")
+                } else {
+                    $("#conteudo").css("display", "block")
+                }
+            })
+    </script>
+
+
+
+
+</div>
+
+
+{% endblock %}
