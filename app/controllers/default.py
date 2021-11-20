@@ -4,11 +4,12 @@ from app import db
 from app.models.forms import campoPesquisa, filtroDeDados, updateGeral, loginForm, createAccountForm, profileForm
 import wikipedia
 import json
-from ..models.tables import LearningObject, User
+from ..models.tables import LearningObject, User, Log
 from .keys import keys
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
 from bson import json_util
+from datetime import datetime
 
 pages_found = None
 instance_list = db.list("learning_object")
@@ -102,6 +103,7 @@ def update(title, prop, data):
         else: raise Exception
 
         db.update("learning_object", page[0])
+
         return Response({"success": True}, content_type="application/json; charset=utf-8")
     except:
         return Response({"success": False}, content_type="application/json; charset=utf-8")
@@ -162,6 +164,9 @@ def adicionarPage(pageNumber):
     page = wikipedia.page(page_title)
     learning_object = (LearningObject(page))
     db.create("learning_object", learning_object)
+    action = "Add object: " + learning_object.geral['id'] + " Titulo: " + learning_object.geral['titulo']
+    log = Log(current_user.email, action, datetime.today())
+    db.create("logs", log)
 
     return render_template('create/adicionado.html', page_title=page_title)
 
@@ -465,6 +470,8 @@ def createAccount():
                     user = User(name, email, password)
                     db.create("users", user)
                     login_user(user)
+                    log = Log(current_user.email, "Created account", datetime.today())
+                    db.create("logs", log)
                     return redirect(url_for("index"))
                 else:
                     error = 2 #Senhas são diferentes

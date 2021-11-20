@@ -131,3 +131,14 @@ class User(object):
         else:
             user = None
         return user
+
+class Log(object):
+    def __init__(self, user, action, time):
+        self.log = {
+            "user": user,
+            "action": action,
+            "time": time
+        }
+
+    def get_as_json(self):
+        return self.__dict__
