@@ -4,16 +4,16 @@ from app import db
 from app.models.forms import campoPesquisa, filtroDeDados, updateGeral, loginForm, createAccountForm, profileForm
 import wikipedia
 import json
-from ..models.tables import LearningObject, User, Log
+from ..models.tables import LearningObject, User
 from .keys import keys
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
 from bson import json_util
-from datetime import datetime
+from app.models.registro import Registrar
 
 pages_found = None
 instance_list = db.list("learning_object")
-db_logs_list = db.list("logs")
+db_registros = db.list("logs")
 
 
 # ----------------- API ------------
@@ -165,10 +165,7 @@ def adicionarPage(pageNumber):
     page = wikipedia.page(page_title)
     learning_object = (LearningObject(page))
     db.create("learning_object", learning_object)
-    action = "Add object: " + learning_object.geral['id'] + " Titulo: " + learning_object.geral['titulo']
-    log = Log(current_user.email, action, datetime.today())
-    db.create("logs", log)
-
+    #adiconar logs
     return render_template('create/adicionado.html', page_title=page_title)
 
 
@@ -361,17 +358,15 @@ def editarGeral(pageNumber):
 @app.route("/logs", methods=['GET'])
 @login_required
 def logs():
-    global db_logs_list
-    db_logs_list = db.list("logs")
-    if len(list(db_logs_list)) != 0:
-        i = 0
-        logs = []
-        for log in db_logs_list:
-            logs.append([log, str(i)])
-            i = i+1
+    global db_registros
+    db_registros = db.list("registro")
+    if len(list(db_registros)) != 0:
+        registros = []
+        for registro in db_registros:
+            registros.append(registro)
     else:
-        logs = None
-    return render_template('logs.html', logs=logs)
+        registros = None
+    return render_template('registros.html', registros=registros)
 
 
 # Mostrar Documentação da API
@@ -488,8 +483,7 @@ def createAccount():
                     user = User(name, email, password)
                     db.create("users", user)
                     login_user(user)
-                    log = Log(current_user.email, "Created account", datetime.today())
-                    db.create("logs", log)
+                    Registrar.usuario()
                     return redirect(url_for("index"))
                 else:
                     error = 2 #Senhas são diferentes
