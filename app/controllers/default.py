@@ -11,10 +11,18 @@ from werkzeug.security import check_password_hash
 from bson import json_util
 from app.models.registro import Registrar
 
+#teste
+from app.models.requisicao import Requisicao
+
+
 pages_found = None
 instance_list = db.list("learning_object")
 db_registros = db.list("logs")
 
+@app.route("/teste", methods=['GET', 'POST'])
+def teste():
+    req = Requisicao()
+    return Response(str(req.teste()))
 
 # ----------------- API ------------
 
@@ -412,9 +420,7 @@ def logout():
     logout_user()
     return redirect(url_for("login"))
 
-
-
-
+    
 #Profile
 @app.route("/profile", methods=['GET', 'POST'])
 @login_required
