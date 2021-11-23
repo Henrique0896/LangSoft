@@ -2,7 +2,6 @@ from app import app
 from flask import render_template, jsonify, Response, redirect, url_for
 from app import db
 from app.models.forms import campoPesquisa, filtroDeDados, updateGeral, loginForm, createAccountForm, profileForm
-import wikipedia
 import json
 from ..models.tables import LearningObject, User
 from .keys import keys
@@ -10,19 +9,11 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
 from bson import json_util
 from app.models.registro import Registrar
-
-#teste
-from app.models.requisicao import Requisicao
+from app.models.buscaYoutube import Busca
 
 
-pages_found = None
 instance_list = db.list("learning_object")
 db_registros = db.list("logs")
-
-@app.route("/teste", methods=['GET', 'POST'])
-def teste():
-    req = Requisicao()
-    return Response(str(req.teste()))
 
 # ----------------- API ------------
 
@@ -140,41 +131,32 @@ def index():
     return render_template('index.html', materias=pages)
 
 
-# Pesquisa qual materia será adicionada
+#listar videos do youtube
 @app.route("/adicionar", methods=['POST', 'GET'])
 @login_required
 def adicionar():
     form = campoPesquisa()
-    global pages_found
-    pages_found = None
-    pages = None
+    buscaYoutube = Busca()
+    videos = None
     if form.validate_on_submit():
-        pages_found = wikipedia.search(form.pesquisa.data)
-        if len(list(pages_found)) != 0:
-            i = 0
-            pages = []
-            for page in pages_found:
-                pages.append([page, str(i)])
-                i = i+1
-        else:
-            pass
+        videos = buscaYoutube.videos(form.pesquisa.data)
     else:
         pass
+    return render_template('create/adicionar.html', form=form, videos=videos)
 
-    return render_template('create/adicionar.html', form=form, pages=pages)
 
-
-# Adiciona materia ao banco
-@app.route("/adicionar/<pageNumber>", methods=['POST', 'GET'])
+# Adiciona video ao banco
+@app.route("/adicionar/<videoId>", methods=['POST', 'GET'])
 @login_required
-def adicionarPage(pageNumber):
-    global pages_found
-    page_title = pages_found[int(pageNumber)]
-    page = wikipedia.page(page_title)
-    learning_object = (LearningObject(page))
-    db.create("learning_object", learning_object)
+def adicionarVideo(videoId):
+    buscaYoutube = Busca()
+    video = buscaYoutube.videoPorId(videoId)
+
+    #Buscar video e comentario pelo id
+    #learning_object = (LearningObject(video))
+    #db.create("learning_object", learning_object)
     #adiconar logs
-    return render_template('create/adicionado.html', page_title=page_title)
+    return render_template('create/adicionado.html', tituloVideo=video)
 
 
 # Deletar materia ao banco

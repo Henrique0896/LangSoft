@@ -1,95 +1,91 @@
 {% extends 'base.html' %}
 
-{% block title %} LangSoft - Adicionar Matéria {% endblock %}
+{% block title %} LangSoft - Adicionar Vídeo {% endblock %}
 
 {% block main %}
 
-    
-    <div class="container-fluid" style="margin: auto">
 
-        <h3>Adicionar</h3>
-   
+<div class="container-fluid" style="margin: auto">
 
-        <form action="" method="POST" style="display: flex; flex-direction: row;">
-            {{ form.csrf_token }}
-            <div>
-                <label>Nome da Matéria</label>
-                {{form.pesquisa(class="form-control")}}
-            </div>
-            <div style="margin-left: 10px; margin-top: 33px;">
+    <h3>Adicionar</h3>
+
+
+    <form action="" method="POST" style="display: flex; flex-direction: row;">
+        {{ form.csrf_token }}
+        <div>
+            <label>Nome do Vídeo</label>
+            {{form.pesquisa(class="form-control")}}
+        </div>
+        <div style="margin-left: 10px; margin-top: 33px;">
             <button type="submit" class="btn btn-light btn-icon-split">
-            
+
                 <span class="icon text-gray-600">
                     <i class="fas fa-arrow-right"></i>
                 </span>
                 <span class="text">Pesquisar</span>
             </button>
         </div>
-        </form>
-        {% if form.errors.pesquisa%}
-        <div style="color: red"> Insira um nome</div>
-        {% endif %}
+    </form>
+    {% if form.errors.pesquisa%}
+    <div style="color: red"> Insira um termo</div>
+    {% endif %}
 
-        {% if form.validate_on_submit() and pages%}
-        <br/>
-        <br/>
-        <br/>
-        
-             <h4>Resultado da Pesquisa</h3>
+    {% if form.validate_on_submit() and videos%}
+    <br />
+    <br />
+    <br />
 
-             <!-- DataTales Example -->
-             <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <br/>
-                    <h6 class="m-0 font-weight-bold text-primary">Selecione apenas
-                        as matérias que deseja adicionar
-                    </h6>
-                    <br/>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>Nome da Matéria do Wikipédia</th>
-                                    <th>Adicionar ao Sistema</th>
-                                </tr>
-                            </thead>
-                            
-                            <tbody>
-                               
-                                {% for page in pages%}
-                                <tr>
-                                    <td>{{ page[0] }}</td>
-                                    <td>
-                                        <a href="{{ url_for('adicionarPage', pageNumber=page[1]) }}" class="btn btn-secondary btn-icon-split">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-arrow-right"></i>
-                                            </span>
-                                            <span class="text">Adicionar</span>
-                                        </a>
-                                    </td>
+    <h4>Resultado da Pesquisa</h3>
 
-                                </tr>
-                                {% endfor %}
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <br />
+                <h6 class="m-0 font-weight-bold text-primary">Escolha
+                    o vídeo que deseja adicionar
+                </h6>
+                <br />
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Título do Vídeo</th>
+                            </tr>
+                        </thead>
 
-                            </tbody>
+                        <tbody>
 
-                        </table>
-                    </div>
+                            {% for video in videos%}
+                            <tr>
+                                <td>
+                                    <a href="{{ url_for('adicionarVideo', videoId=video['id']) }}">
+                                        {{ video['titulo'] }}
+                                    </a>
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
                 </div>
             </div>
-           
-            {% elif form.validate_on_submit() and not pages%}
-            <br/>
-            <br/>
-            <br/>
-            <h5 style="color: red">Nenhum Resultado Encontrado</h4>
-        {% endif %}
+        </div>
 
-        <div style="padding: 180px;"></div>
-        
-    </div>
+        {% elif form.validate_on_submit() and not videos%}
+        <br />
+        <br />
+        <br />
+        <h5 style="color: red">Nenhum Resultado Encontrado
+    </h4>
+    {% endif %}
 
-       
+    <div style="padding: 180px;"></div>
+
+</div>
+
+
 {% endblock %}
