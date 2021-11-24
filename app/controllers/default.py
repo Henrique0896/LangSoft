@@ -9,7 +9,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
 from bson import json_util
 from app.models.registro import Registrar
-from app.models.buscaYoutube import Busca
+from app.models.youtube import Youtube
 
 
 instance_list = db.list("learning_object")
@@ -136,10 +136,10 @@ def index():
 @login_required
 def adicionar():
     form = campoPesquisa()
-    buscaYoutube = Busca()
+    youtube = Youtube()
     videos = None
     if form.validate_on_submit():
-        videos = buscaYoutube.videos(form.pesquisa.data)
+        videos = youtube.buscarListaVideos(form.pesquisa.data)
     else:
         pass
     return render_template('create/adicionar.html', form=form, videos=videos)
@@ -149,14 +149,13 @@ def adicionar():
 @app.route("/adicionar/<videoId>", methods=['POST', 'GET'])
 @login_required
 def adicionarVideo(videoId):
-    buscaYoutube = Busca()
-    video = buscaYoutube.videoPorId(videoId)
+    youtube = Youtube()
+    video = youtube.retornarVideo(videoId)
 
-    #Buscar video e comentario pelo id
     #learning_object = (LearningObject(video))
     #db.create("learning_object", learning_object)
     #adiconar logs
-    return render_template('create/adicionado.html', tituloVideo=video)
+    return render_template('create/adicionado.html', tituloVideo=video['informacoes'][0]['snippet']['title'])
 
 
 # Deletar materia ao banco

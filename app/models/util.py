@@ -1,6 +1,4 @@
 import collections
-from bs4 import BeautifulSoup
-
 
 def get_most_used_words(text, quantity):
     skipwords = set(line.strip() for line in text)
@@ -25,12 +23,4 @@ def get_most_used_words(text, quantity):
                 wordcount[word] += 1
 
     return list(collections.Counter(wordcount))[:int(quantity)]
-
-
-def get_images(html_content):
-    collection = []
-    soup = BeautifulSoup(html_content, 'html.parser')
-    for link in soup.find_all('img'):
-        collection.append(link.get('src'))
-    return collection
 
