@@ -1,6 +1,6 @@
 from apiclient.discovery import build
 
-DEVELOPER_KEY = "AIzaSyBJPJzM0oyrZLthEiptqztpXs8JhzpIATI"
+DEVELOPER_KEY = "key"
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
 
