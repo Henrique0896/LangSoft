@@ -1,6 +1,6 @@
 from apiclient.discovery import build
 
-DEVELOPER_KEY = "key"
+DEVELOPER_KEY = "AIzaSyBJPJzM0oyrZLthEiptqztpXs8JhzpIATI"
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
 
@@ -10,6 +10,7 @@ class Youtube():
         developerKey=DEVELOPER_KEY)
 
     def buscarListaVideos(self, termo):
+        listaVideos = None
         try:
             listaVideosApi = self.apiYoutube.search().list(
             q=termo,
@@ -21,43 +22,37 @@ class Youtube():
             for infoVideo in listaVideosApi.get("items", []):
                     listaVideos.append({"id": infoVideo['id']['videoId'], "titulo": infoVideo['snippet']['title']})
         except:
-            print("Erro ao acessar API do youtube")
-        return listaVideos if listaVideos else None
+            print("Erro ao buscar lista de vídeos")
+        return listaVideos
             
     def buscarVideo(self, id):
-        infoVideo = None
+        video = None
         try:
-            infoVideo = self.apiYoutube.videos().list(
+            video = self.apiYoutube.videos().list(
             part='snippet',
             id=id
             ).execute()
         except:
-            print("Erro ao acessar API do youtube 1")
-        return infoVideo.get("items") if infoVideo else infoVideo
+            print("Erro ao buscar vídeo")
+        return video
 
     def buscarComentarios(self, id):
-        # comentarios = None
-        # try:
-        infoComentariosApi = self.apiYoutube.commentThreads().list(
-        part='snippet',
-        videoId=id
-        ).execute()
-        comentarios = []
-        for infoComentario in infoComentariosApi.get("items", []):
-            comentarios.append(infoComentario['snippet']['topLevelComment']['snippet'])
-        # except:
-            # print("Erro ao acessar API do youtube 2")
+        comentarios = None
+        try:
+            comentarios = self.apiYoutube.commentThreads().list(
+            part='snippet',
+            videoId=id
+            ).execute()
+        except:
+            print("Erro ao buscar comentários do vídeo")
         return comentarios
 
     def retornarVideo(self, id):
-        # infoVideo = None
-        # try:
-        infoBasicas = self.buscarVideo(id)
-        comentarios = self.buscarComentarios(id)
-        infoVideo = {"informacoes": infoBasicas, "comentarios": comentarios}
-        # except:
-            # print("Erro ao acessar API do youtube 3")
+        infoVideo = None
+        try:
+            video = self.buscarVideo(id)
+            comentarios = self.buscarComentarios(id)
+            infoVideo = {"informacoes": video, "comentarios": comentarios}
+        except:
+            print("Erro ao retornar informações do vídeo")
         return infoVideo
-
-    
-

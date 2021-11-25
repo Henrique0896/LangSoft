@@ -7,7 +7,7 @@
     
     <div class="container-fluid" style="margin: auto">
 
-        <h3>Pesquisar no Banco</h3>
+        <h3>Pesquisar no Sistema</h3>
    
 
         <form action="" method="POST" style="display: flex; flex-direction: row;">
@@ -32,7 +32,7 @@
         <div style="color: red"> Insira um nome</div>
         {% endif %}
 
-        {% if form.validate_on_submit() and pages%}
+        {% if form.validate_on_submit() and videos%}
         <br/>
         <br/>
         <br/>
@@ -52,16 +52,19 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Nome da Matéria do Wikipédia</th>
+                                    <th>Nome da Vídeo do Youtube</th>
                                 </tr>
                             </thead>
                             
                             <tbody>
                                 
                                
-                                {% for page in pages%}
+                                {% for video in videos%}
                                 <tr>
-                                    <td>{{ page }}</td>
+                                    <td><a href="{{ url_for('listarVideo', videoId=video['geral']['id']) }}">{{
+                                        video['geral']['titulo'] }}
+                                    </a>
+                                </td>
 
                                 </tr>
                                 {% endfor %}
@@ -73,7 +76,7 @@
                 </div>
             </div>
            
-            {% elif form.validate_on_submit() and not pages%}
+            {% elif form.validate_on_submit() and not videos%}
             <br/>
             <br/>
             <br/>

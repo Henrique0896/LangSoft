@@ -2,7 +2,7 @@ from flask import Flask
 from app.database import Database
 from flask_login import LoginManager
 
-db = Database("sd")
+db = Database("LangSoft")
 
 
 app = Flask(__name__)

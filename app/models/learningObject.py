@@ -3,17 +3,17 @@ from app.models.util import get_most_used_words
 class LearningObject():
     def __init__(self, video):
         self.geral = {
-            "id": video,
-            "titulo": video,
+            "id": video['informacoes']['items'][0]['id'],
+            "titulo": video['informacoes']['items'][0]['snippet']['title'],
             "idioma": "English",
-            "descricao": video,
-            "palavras_chave": get_most_used_words(video, 5),
+            "descricao": video['informacoes']['items'][0]['snippet']['description'],
+            "palavras_chave": None, #get_most_used_words(video, 5),
             "cobertura": None,
             "estrutura": None,
             "nivel_de_agregacao": None,
         }
         self.ciclo_de_vida = {
-            "versao": video,
+            "versao": None,
             "status": None,
             "contribuinte": {
                 "entidade": None,
@@ -36,8 +36,8 @@ class LearningObject():
         }
         self.metadados_tecnicos = {
             "formato": "text/html",
-            "tamanho": len(list(video.content)),
-            "localizacao": video.url,
+            "tamanho": None, #len(list(video.content)),
+            "localizacao": None,
             "requisitos": None,
             "observacoes_de_Instalacoes": None,
             "outros_requisitos_de_sistema": None,
@@ -64,22 +64,23 @@ class LearningObject():
         self.relacoes = {
             "genero": "Fontes Externas",
             "recurso": {
-                "referencias": video,
-                "links_externos": video
+                "referencias": None,
+                "links_externos": None
             }
         }
         self.classificacao = {
             "finalidade": None,
-            "diretorio": video,
+            "diretorio": None,
             "descricao": None,
             "palavra_chave": None
         }
         self.conteudo = {
             "data": None,
-            "entidade": video,
-            "imagens": video,
+            "entidade": None,
+            "imagens": None,
             "comentarios": None,
         }
+    
 
     def get_as_json(self):
         return self.__dict__

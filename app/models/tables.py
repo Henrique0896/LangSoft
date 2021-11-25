@@ -44,11 +44,3 @@ class User(object):
             user = None
         return user
 
-class Registro():
-    def __init__(self, usuario, acao, data):
-        self.usuario = usuario
-        self.acao = acao
-        self.data = data
-
-    def get_as_json(self):
-        return self.__dict__

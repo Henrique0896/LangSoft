@@ -1,11 +1,10 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-
-class Database(object):
-    def __init__(self, database_name):
+class Database():
+    def __init__(self, nameDb):
         self.client = MongoClient('localhost', 27017)
-        self.database = self.client[str(database_name)]
+        self.database = self.client[str(nameDb)]
 
     @property
     def is_online(self):
@@ -21,24 +20,24 @@ class Database(object):
 
     @property
     def collections(self):
-        return self.database.collection_names()
+        return self.database.nomeColecaos()
 
-    def list(self, collection_name):
-        return list(self.database[str(collection_name)].find())
+    def list(self, nomeColecao):
+        return list(self.database[str(nomeColecao)].find())
 
-    def create(self, collection_name, instance):
-        self.database[str(collection_name)].insert(instance.get_as_json())
+    def create(self, nomeColecao, objeto):
+        self.database[str(nomeColecao)].insert(objeto.get_as_json())
 
-    def read(self, collection_name, instance_id):
-        return self.database[str(collection_name)].find_one({"_id": ObjectId(instance_id)})
+    def read(self, nomeColecao, objeto_id):
+        return self.database[str(nomeColecao)].find_one({"_id": ObjectId(objeto_id)})
 
-    def filter_by(self, collection_name, filter_options):
-        return list(self.database[str(collection_name)].find(filter_options))
+    def filter_by(self, nomeColecao, filter_options):
+        return list(self.database[str(nomeColecao)].find(filter_options))
 
-    def update(self, collection_name, instance):
-        instance = dict(instance)
-        self.database[str(collection_name)].update_one({"_id": instance["_id"]}, {"$set": instance})
+    def update(self, nomeColecao, objeto):
+        objeto = dict(objeto)
+        self.database[str(nomeColecao)].update_one({"_id": objeto["_id"]}, {"$set": objeto})
 
-    def delete(self, collection_name, instance):
-        self.database[str(collection_name)].delete_one({"_id": instance["_id"]})
+    def delete(self, nomeColecao, objeto):
+        self.database[str(nomeColecao)].delete_one({"_id": objeto["_id"]})
 
