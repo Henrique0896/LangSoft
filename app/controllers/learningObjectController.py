@@ -1,9 +1,8 @@
-from app import app
+from app import app, db
 from flask import render_template, redirect, url_for
-from app import db
+from flask_login import login_required
 from app.models.forms import campoPesquisa, filtroDeDados, updateGeral
 from app.models.keys import keys
-from flask_login import login_required
 from app.models.registro import Registro
 from app.models.youtube import Youtube
 from app.models.learningObject import LearningObject
@@ -81,7 +80,7 @@ def pesquisar():
         pass
     return render_template('pesquisar.html', form=form, videos=videos, filtro=filtro)
 
-# Editar vídeo salvo no banco
+# Editar vídeo salvo no sistema
 @app.route("/editar/<videoId>", methods=['GET', 'POST'])
 @login_required
 def editar(videoId):

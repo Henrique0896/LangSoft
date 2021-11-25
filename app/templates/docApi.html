@@ -56,7 +56,7 @@
 
     <h2 class="h4 mb-1 text-gray-800">Filtro</h2>
     <p class="mb-4">
-        A rota para filtragem recebe dois parâmetros: "campo" e "filtro". O filtro pode
+        A rota para filtragem recebe dois parâmetros: "campo" e "termo". O termo pode
         ser qualquer texto e o campo deve ser algum da seguinte lista:
     <ul>
         <li>geral</li>
@@ -79,7 +79,7 @@
         <div class="col-lg-6">
             <div class="card mb-4 py-3 border-left-primary">
                 <div class="card-body">
-                    /api/consulta/"campo"/"filtro"
+                    /api/consulta/"campo"/"termo"
                 </div>
             </div>
         </div>
@@ -89,14 +89,8 @@
 
     <h2 class="h4 mb-1 text-gray-800">Adicionar</h2>
     <p class="mb-4">
-        Para adicionar uma nova matéria utilizando a api, basta entrar com os parâmetros "página"
-        e "paginação". Página é o nome da matéria, exemplo "galo". Como
-        existem muitas páginas referentes a um nome, então devemos adicionar um número que
-        será a paginação. Este número refere a qual página iremos adicionar.
-        Utilizando a plataforma é possível saber exatamente o título da página
-        que irá ser adicionada, mas na api devemos entrar diretamente com o número de paginação.
+        Para adicionar um nova vídeo utilizando a api, basta entrar com id do vídeo. 
     </p>
-
 
     <!-- Content Row -->
     <div class="row">
@@ -104,7 +98,7 @@
         <div class="col-lg-6">
             <div class="card mb-4 py-3 border-left-primary">
                 <div class="card-body">
-                    /api/add/"pagina"/"paginacao"
+                    /api/adicionar/"videoID"
                 </div>
             </div>
         </div>
@@ -190,7 +184,7 @@
 
     <h2 class="h4 mb-1 text-gray-800">Excluir</h2>
     <p class="mb-4">
-         A rota para excluir uma matéria recebe o título da matéria a ser excluida
+         A rota para excluir um vídeo recebe o id do vídeo a ser excluido
     </p>
 
 
@@ -200,7 +194,7 @@
         <div class="col-lg-6">
             <div class="card mb-4 py-3 border-left-primary">
                 <div class="card-body">
-                    /api/delete/"titulo"
+                    /api/delete/"id"
                 </div>
             </div>
         </div>
