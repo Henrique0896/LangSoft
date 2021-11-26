@@ -5,6 +5,7 @@ from app.models.forms import loginForm, createAccountForm, profileForm
 from ..models.tables import User
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
+from app.models.registro import Registro
 
 #Login
 @app.route("/login", methods=['GET', 'POST'])
@@ -15,21 +16,24 @@ def login():
         if form.validate_on_submit():
             email = form.email.data
             password = form.password.data
-            query = db.filter_by('users', {"email": email})
-            if query:
-                user_bd = query[0]
-                is_pass_ok = check_password_hash(user_bd['password'], password)
+            try:
+                [usuario] = db.filter_by('users', {"email": email})
+            except:
+                usuario = None
+            if usuario:
+                is_pass_ok = check_password_hash(usuario['password'], password)
                 if is_pass_ok:
-                    user = User(user_bd['name'], user_bd['email'], user_bd['password'])
+                    user = User(usuario['name'], usuario['email'], usuario['password'])
                     login_user(user)
-                    print(user.email)
+                    reg = Registro()
+                    reg.registrarUsuarioLogado()
                     return redirect(url_for("index"))
                 else:
                     error = 1
             else:
                 error = 1
         else:
-            print("Não Validade")
+            pass
         return render_template('login.html', form=form, error=error)
     else:
         return redirect(url_for("index"))
@@ -39,6 +43,8 @@ def login():
 @app.route("/logout", methods=['GET', 'POST'])
 @login_required
 def logout():
+    reg = Registro()
+    reg.registrarUsuarioDeslogado()
     logout_user()
     return redirect(url_for("login"))
 
@@ -119,14 +125,10 @@ def createAccount():
     else:
         return redirect(url_for("index"))
 
-
-
 @app.errorhandler(404)
 def errorPage(e):
     return render_template('404.html')
     
-
-
 @app.errorhandler(401)
 def page_not_found(e):
     return redirect(url_for("login"))

@@ -3,9 +3,11 @@ from flask import render_template, Response
 from flask_login import login_required
 from bson import json_util
 import json
+import copy
 from app.models.keys import keys
 from app.models.youtube import Youtube
 from app.models.learningObject import LearningObject
+from app.models.registro import Registro
 
 # Listar vídeos salvos no sistema
 @app.route("/api/lista", methods=['GET'])
@@ -53,6 +55,8 @@ def adicionarApi(videoId):
         video = youtube.retornarVideo(videoId)
         learningObject = LearningObject(video)
         db.create("learningObject", learningObject)
+        reg = Registro()
+        reg.registrarVideoAdicionado(videoId, True)
     except:
         return ({"success:": False, "message": "Nao foi possível realizar a operação"})
     return Response({"success": True}, content_type="application/json; charset=utf-8")
@@ -64,6 +68,8 @@ def excluirVideoApi(videoId):
     try:
         [video] = db.filter_by('learningObject', {"geral.id": videoId})
         db.delete("learningObject", video)
+        reg = Registro()
+        reg.registrarVideoExcluido(videoId, True)
         return Response({"success": True}, content_type="application/json; charset=utf-8")
     except:
         return {"success": "false", "message": "Falha ao executar operação"}
@@ -74,6 +80,7 @@ def excluirVideoApi(videoId):
 def editarVideoApi(videoId, campo, dados):
     try:
         [video] = db.filter_by('learningObject', {"geral.id": videoId})
+        videoAntigo = copy.deepcopy(video)
         secoes = str.split(campo, "-")
         if len(secoes) == 2:
             video[secoes[0]][secoes[1]] = dados
@@ -81,6 +88,8 @@ def editarVideoApi(videoId, campo, dados):
             video[secoes[0]][secoes[1]][secoes[2]] = dados
         else: raise Exception
         db.update("learningObject", video)
+        reg = Registro()
+        reg.registrarVideoAtualizado(videoAntigo, video, True)
         return Response({"success": True}, content_type="application/json; charset=utf-8")
     except:
         return ({"success:": False, "message": "Nao foi possível realizar a operação de atualização"})

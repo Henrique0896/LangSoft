@@ -14,23 +14,47 @@ class Registro():
         self.usuario = current_user.email
         self.acao = "Novo usuário registrado"
         self.data = datetime.today()
-        
+        db.create("registro", self)
     
-    def registrarVideoAdicionado(self, videoId):
+    def registrarUsuarioLogado(self):
         self.usuario = current_user.email
-        self.acao = "Video adicionado, id: " + videoId
+        self.acao = "Usuário logado"
         self.data = datetime.today()
         db.create("registro", self)
     
-    def registrarVideoExcluido(self, videoId):
+    def registrarUsuarioDeslogado(self):
         self.usuario = current_user.email
-        self.acao = "Video excluido, id: " + videoId
+        self.acao = "Usuário deslogado"
         self.data = datetime.today()
         db.create("registro", self)
     
-    def registrarVideoAtualizado(self, estadoAnterior, estadoAtual):
+    def registrarVideoAdicionado(self, videoId, api=False):
+        if api:
+            mensagem = " usando a api"
+        else:
+            mensagem = ""
         self.usuario = current_user.email
-        self.acao = "Video editado, id: " + estadoAtual['geral']['id']
+        self.acao = "Video adicionado" + mensagem + ", id: " + videoId
+        self.data = datetime.today()
+        db.create("registro", self)
+    
+    def registrarVideoExcluido(self, videoId, api=False):
+        if api:
+            mensagem = " usando a api"
+        else:
+            mensagem = ""
+        self.usuario = current_user.email
+        self.acao = "Video excluido" + mensagem + ", id: " + videoId
+        self.data = datetime.today()
+        db.create("registro", self)
+    
+    def registrarVideoAtualizado(self, estadoAnterior, estadoAtual, api=False):
+        if api:
+            mensagem = " usando a api"
+        else:
+            mensagem = ""
+        self.usuario = current_user.email
+        self.acao = "Video editado" + mensagem + ", id: " + estadoAtual['geral']['id']
         self.estadoAnterior = estadoAnterior
         self.estadoAtual = estadoAtual
         self.data = datetime.today()
