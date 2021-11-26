@@ -154,11 +154,18 @@
 
                     </ul>
 
+
                 </nav>
                 <!-- End of Topbar -->
-
-
-
+                {% for message in get_flashed_messages() %}
+                <div class="" style="margin-top: -20px">
+                    <div class="card bg-danger text-white shadow">
+                        <div class="card-body">
+                            {{ message }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
             <!-- End of Main Content -->
 

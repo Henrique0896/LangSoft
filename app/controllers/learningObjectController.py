@@ -1,5 +1,5 @@
 from app import app, db
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 from flask_login import login_required
 from app.models.forms import campoPesquisa, filtroDeDados, updateGeral
 from app.models.keys import keys
@@ -7,6 +7,7 @@ from app.models.registro import Registro
 from app.models.youtube import Youtube
 from app.models.learningObject import LearningObject
 from app.models.manipulacaoForm import ManipulacaoForm
+import copy
 
 # Listar vídeos salvos no sistema
 @app.route("/")
@@ -19,13 +20,14 @@ def index():
 @app.route("/adicionar", methods=['POST', 'GET'])
 @login_required
 def adicionar():
+    videos = None
     form = campoPesquisa()
     youtube = Youtube()
-    videos = None
     if form.validate_on_submit():
-        videos = youtube.buscarListaVideos(form.pesquisa.data)
-    else:
-        pass
+        try:
+            videos = youtube.buscarListaVideos(form.pesquisa.data)
+        except Exception as e:
+            flash("Erro ao buscar informações sobre vídeos na api: " + e.args)
     return render_template('adicionar.html', form=form, videos=videos)
 
 # Adicionar vídeo ao sistema
@@ -33,7 +35,11 @@ def adicionar():
 @login_required
 def adicionarVideo(videoId):
     youtube = Youtube()
-    video = youtube.retornarVideo(videoId)
+    video = None
+    try:
+        video = youtube.retornarVideo(videoId)
+    except Exception as e:
+        flash("Erro ao buscar informações sobre vídeos na api: " + e.args )
     learningObject = LearningObject(video)
     db.create("learningObject", learningObject)
     reg = Registro()
@@ -46,6 +52,8 @@ def adicionarVideo(videoId):
 def excluirVideo(videoId):
     [video] = db.filter_by('learningObject', {"geral.id": videoId})
     db.delete("learningObject", video)
+    reg = Registro()
+    reg.registrarVideoExcluido(videoId)
     return render_template('delete/removido.html', tituloVideo=video['geral']['titulo'])
 
 
@@ -85,10 +93,13 @@ def pesquisar():
 @login_required
 def editar(videoId):
     [video] = db.filter_by('learningObject', {"geral.id": videoId})
+    videoAntigo = copy.deepcopy(video)
     form = updateGeral()
     if form.validate_on_submit():
         video = ManipulacaoForm.atualizarObjeto(form, video)
         db.update("learningObject", video)
+        reg = Registro()
+        reg.registrarVideoAtualizado(videoAntigo, video)
         return redirect(url_for("listarVideo", videoId=videoId))
     else:
         form = ManipulacaoForm.preencher(form, video)
