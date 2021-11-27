@@ -54,15 +54,19 @@ def excluirVideo(videoId):
     db.delete("learningObject", video)
     reg = Registro()
     reg.registrarVideoExcluido(videoId)
-    return render_template('delete/removido.html', tituloVideo=video['geral']['titulo'])
+    return render_template('removido.html', tituloVideo=video['geral']['titulo'])
 
 
 # Listar informações do video no sistema
 @app.route("/listar/<videoId>", methods=['GET'])
 @login_required
 def listarVideo(videoId):
-    [video] = db.filter_by('learningObject', {"geral.id": videoId})
-    return render_template('read/listar.html', video=video, videoId=videoId)
+    try:
+        [video] = db.filter_by('learningObject', {"geral.id": videoId})
+    except:
+        flash("Video não encontrado")
+        return redirect(url_for("errorPage"))
+    return render_template('listar.html', video=video, videoId=videoId)
 
 
 # Pesquisar informações sobre um vídeo adicionado no sistema

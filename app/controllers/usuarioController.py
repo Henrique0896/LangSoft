@@ -94,7 +94,7 @@ def profile():
         form.name.data = current_user.name
         form.email.data = current_user.email
     
-    return render_template('profile.html', form=form, error=error)
+    return render_template('perfil.html', form=form, error=error)
 
 #Criar Conta
 @app.route("/createaccount", methods=['GET', 'POST'])
@@ -121,12 +121,13 @@ def createAccount():
         else:
             pass
 
-        return render_template('register.html', form=form, error=error)
+        return render_template('criar-conta.html', form=form, error=error)
     else:
         return redirect(url_for("index"))
 
+@app.route("/erro", methods=['GET'])
 @app.errorhandler(404)
-def errorPage(e):
+def errorPage(e=None):
     return render_template('404.html')
     
 @app.errorhandler(401)

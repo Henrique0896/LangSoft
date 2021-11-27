@@ -21,7 +21,7 @@ class updateGeral(FlaskForm):
     estrutura = StringField("estrutura")
     nivelDeAgregacao = StringField("nivelDeAgregacao")
 
-    versao = StringField("versao", validators=[DataRequired()])
+    versao = StringField("versao")
     status = StringField("status")
     entidade = StringField("entidade")
     data = StringField("data")

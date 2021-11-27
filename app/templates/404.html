@@ -25,16 +25,25 @@
 
 </head>
 
-<body id="page-top" style="margin: 100px;">
+<body style="margin: 100px;">
 
     <!-- Page Wrapper -->
-    <div id="wrapper">
+    <div>
+        {% for message in get_flashed_messages() %}
+        <div class="" style="margin-top: -20px; margin-bottom: 20px">
+            <div class="card bg-danger text-white shadow">
+                <div class="card-body">
+                    {{ message }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-            <div id="">
+            <div>
 
                
 

@@ -99,4 +99,4 @@ def editarVideoApi(videoId, campo, dados):
 @app.route("/doc-api", methods=['GET'])
 @login_required
 def documentacaoApi():
-    return render_template('docApi.html')
+    return render_template('doc-api.html')
