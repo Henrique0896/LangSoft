@@ -79,6 +79,7 @@ def excluirVideoApi(videoId):
 @app.route("/api/editar/<videoId>/<campo>/<dados>", methods=['GET', 'POST'])
 def editarVideoApi(videoId, campo, dados):
     try:
+        if campo == "geral-id": raise Exception
         [video] = db.filter_by('learningObject', {"geral.id": videoId})
         videoAntigo = copy.deepcopy(video)
         secoes = str.split(campo, "-")
@@ -95,6 +96,16 @@ def editarVideoApi(videoId, campo, dados):
         return ({"success:": False, "message": "Nao foi possível realizar a operação de atualização"})
 
 
+# Retornar objeto de alteção
+@app.route("/api/registro-alteracao/<registroId>", methods=['GET'])
+@login_required
+def retornarRegistroAlteracao(registroId):
+    try:
+        video = db.read('registro', registroId)
+        return Response(json.dumps(video, default=json_util.default, ensure_ascii=False), content_type="application/json; charset=utf-8")
+    except:
+        return {"success": "false", "message": "Falha ao executar operacao"}
+   
 # Mostrar Documentação da API
 @app.route("/doc-api", methods=['GET'])
 @login_required

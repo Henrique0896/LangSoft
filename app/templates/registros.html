@@ -28,6 +28,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Id de alteração</th>
                             <th>Ação</th>
                             <th>Usuário</th>
                             <th>Data</th>
@@ -39,6 +40,7 @@
 
                         {% for registro in registros %}
                         <tr>
+                            <td>{{ registro['_id'] }}</td>
                             <td>{{ registro['acao'] }}</td>
                             <td>{{ registro['usuario'] }}</td>
                             <td>{{ registro['data'] }}</td>

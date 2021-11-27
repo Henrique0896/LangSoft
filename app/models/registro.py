@@ -16,15 +16,19 @@ class Registro():
         self.data = datetime.today()
         db.create("registro", self)
     
-    def registrarUsuarioLogado(self):
+    def registrarUsuarioAtualizado(self, estadoAnterior, estadoAtual):
         self.usuario = current_user.email
-        self.acao = "Usuário logado"
+        self.acao = "Usuário editado"
+        self.estadoAnterior = estadoAnterior
+        self.estadoAtual = estadoAtual
         self.data = datetime.today()
+        del self.estadoAnterior['password']
+        del self.estadoAtual['password']
         db.create("registro", self)
     
-    def registrarUsuarioDeslogado(self):
+    def registrarUsuarioExcluido(self):
         self.usuario = current_user.email
-        self.acao = "Usuário deslogado"
+        self.acao = "Usuário excluido"
         self.data = datetime.today()
         db.create("registro", self)
     

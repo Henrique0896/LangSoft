@@ -6,6 +6,7 @@ from ..models.tables import User
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
 from app.models.registro import Registro
+import copy
 
 #Login
 @app.route("/login", methods=['GET', 'POST'])
@@ -25,8 +26,6 @@ def login():
                 if is_pass_ok:
                     user = User(usuario['name'], usuario['email'], usuario['password'])
                     login_user(user)
-                    reg = Registro()
-                    reg.registrarUsuarioLogado()
                     return redirect(url_for("index"))
                 else:
                     error = 1
@@ -43,16 +42,14 @@ def login():
 @app.route("/logout", methods=['GET', 'POST'])
 @login_required
 def logout():
-    reg = Registro()
-    reg.registrarUsuarioDeslogado()
     logout_user()
     return redirect(url_for("login"))
 
     
-#Profile
-@app.route("/profile", methods=['GET', 'POST'])
+#Editar o perfil
+@app.route("/perfil", methods=['GET', 'POST'])
 @login_required
-def profile():
+def perfil():
     form = profileForm()
     error = None
     if form.validate_on_submit():
@@ -77,12 +74,13 @@ def profile():
             is_pass_ok = check_password_hash(user_bd['password'], current_password)
             if is_pass_ok:
                 if new_password == repeat_new_password:
+                    usuarioAntigo = copy.deepcopy(user_bd)
                     user_bd['name'] = name
                     user_bd['password'] = new_password
                     user_bd['email'] = email
-
-                    
                     db.update("users", user_bd)
+                    reg = Registro()
+                    reg.registrarUsuarioAtualizado(usuarioAntigo, user_bd)
                     return redirect(url_for("index"))
                 else:
                     error = 3 # Nova Senha Não coincide
@@ -113,6 +111,8 @@ def createAccount():
                     user = User(name, email, password)
                     db.create("users", user)
                     login_user(user)
+                    reg = Registro()
+                    reg.registrarUsuarioCadastrado()
                     return redirect(url_for("index"))
                 else:
                     error = 2 #Senhas são diferentes
