@@ -2,7 +2,7 @@ from app import app
 from flask import render_template, redirect, url_for, flash
 from app import db
 from app.models.forms import loginForm, createAccountForm, profileForm
-from ..models.tables import User
+from ..models.usuario import User
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
 from app.models.registro import Registro
@@ -142,7 +142,7 @@ def excluirUsuario():
     else:
         flash("Erro ao excluir usuario")
         return redirect(url_for("perfil"))
-        
+
 @app.route("/erro", methods=['GET'])
 @app.errorhandler(404)
 def errorPage(e=None):
