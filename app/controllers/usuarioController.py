@@ -1,11 +1,11 @@
 from app import app
 from flask import render_template, redirect, url_for, flash
 from app import db
-from app.models.formulario.forms import loginForm, createAccountForm, profileForm
-from ..models.usuario import User
+from app.models.forms.usuarioForm import loginForm, createAccountForm, profileForm
+from app.models.usuarioModel import User
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
-from app.models.registro import Registro
+from app.models.registroModel import Registro
 import copy
 
 #Login

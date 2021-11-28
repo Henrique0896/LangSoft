@@ -4,10 +4,10 @@ from flask_login import login_required
 from bson import json_util
 import json
 import copy
-from app.models.keys import keys
-from app.models.youtube import Youtube
-from app.models.learningObject import LearningObject
-from app.models.registro import Registro
+from app.models.constants.keys import keys
+from app.models.services.youtubeService import Youtube
+from app.models.learningObjectModel import LearningObject
+from app.models.registroModel import Registro
 
 # Listar vídeos salvos no sistema
 @app.route("/api/lista", methods=['GET'])

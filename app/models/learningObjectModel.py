@@ -1,4 +1,4 @@
-from app.models.util import get_most_used_words
+from app.models.settings.util import get_most_used_words
 
 class LearningObject():
     def __init__(self, video):
