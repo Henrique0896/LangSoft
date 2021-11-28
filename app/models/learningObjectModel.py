@@ -3,7 +3,10 @@ from app.models.settings.util import get_most_used_words
 class LearningObject():
     def __init__(self, video):
         self.geral = {
-            "id": video['informacoes']['items'][0]['id'],
+            "identificador": {
+                "catalogo": "URI", 
+                "entrada":"https://www.youtube.com/watch?v="+video['informacoes']['items'][0]['id']
+            },
             "titulo": video['informacoes']['items'][0]['snippet']['title'],
             "idioma": "English",
             "descricao": video['informacoes']['items'][0]['snippet']['description'],

@@ -111,3 +111,33 @@ def retornarRegistroAlteracao(registroId):
 @login_required
 def documentacaoApi():
     return render_template('doc-api.html')
+
+
+
+# Pesquisar video
+@app.route("/api/lom/<termo>", methods=['GET'])
+@login_required
+def LomApi(termo):
+    video = None
+    youtube = Youtube()
+    try:
+        video = youtube.retornarVideo(termo)
+        learningObject = LearningObject(video)
+        db.create("learningObject", learningObject)
+    except Exception as e:
+        return {"ERRO"}
+    return "ok"
+
+# Pesquisar video
+@app.route("/api/youtube/<termo>", methods=['GET'])
+@login_required
+def pesquisarApi(termo):
+    video = None
+    youtube = Youtube()
+    try:
+        video = youtube.retornarVideo(termo)
+    except Exception as e:
+        return {"ERRO"}
+    return Response(json.dumps(video, default=json_util.default, ensure_ascii=False), content_type="application/json; charset=utf-8")
+
+
