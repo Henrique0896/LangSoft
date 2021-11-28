@@ -1,12 +1,12 @@
 from app import app, db
 from flask import render_template, redirect, url_for, flash
 from flask_login import login_required
-from app.models.forms import campoPesquisa, filtroDeDados, updateGeral
 from app.models.keys import keys
 from app.models.registro import Registro
 from app.models.youtube import Youtube
 from app.models.learningObject import LearningObject
-from app.models.manipulacaoForm import ManipulacaoForm
+from app.models.formulario.manipulacaoForm import ManipulacaoForm
+from app.models.formulario.forms import campoPesquisa, filtroDeDados, updateGeral
 import copy
 
 # Listar vídeos salvos no sistema
