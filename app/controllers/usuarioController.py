@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 from app import db
 from app.models.forms import loginForm, createAccountForm, profileForm
 from ..models.tables import User
@@ -125,6 +125,24 @@ def createAccount():
     else:
         return redirect(url_for("index"))
 
+# Deletar usuário do sistema
+@app.route("/excluir-usuario", methods=['DELETE', 'GET'])
+@login_required
+def excluirUsuario():
+    try:
+        [usuario] = db.filter_by('users', {"email": current_user.email})
+        db.delete("users", usuario)
+        reg = Registro()
+        reg.registrarUsuarioExcluido()
+        usuarioExcluido=True
+    except:
+        usuarioExcluido=False
+    if usuarioExcluido:
+        return redirect(url_for("login"))
+    else:
+        flash("Erro ao excluir usuario")
+        return redirect(url_for("perfil"))
+        
 @app.route("/erro", methods=['GET'])
 @app.errorhandler(404)
 def errorPage(e=None):

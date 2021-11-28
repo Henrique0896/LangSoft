@@ -19,7 +19,8 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.4/css/sb-admin-2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.4/css/sb-admin-2.min.css" />
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo.png') }}" />
 
@@ -28,6 +29,15 @@
 <body class="bg-gradient-primary">
 
     <div class="container">
+        {% for message in get_flashed_messages() %}
+        <div class="" style="margin-top: 10px">
+            <div class="card bg-danger text-white shadow">
+                <div class="card-body">
+                    {{ message }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
 
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
@@ -51,12 +61,14 @@
                                 </div>
                                 <label>Senha atual:</label>
                                 <div class="form-group ">
-                                    {{form.current_password(class="form-control form-control-user", placeholder="Senha")}}
+                                    {{form.current_password(class="form-control form-control-user",
+                                    placeholder="Senha")}}
                                 </div>
                                 <label>Nova Senha:</label>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        {{form.new_password(class="form-control form-control-user", placeholder="Senha")}}
+                                        {{form.new_password(class="form-control form-control-user",
+                                        placeholder="Senha")}}
                                     </div>
                                     <div class="col-sm-6">
                                         {{form.repeat_new_password(class="form-control form-control-user",
@@ -89,7 +101,11 @@
                             <hr>
 
                             <div class="text-center">
-                                <a class="small" href="{{ url_for('login') }}">Voltar para Dashboard</a>
+                                <a href="{{ url_for('login') }}">Voltar para Dashboard</a>
+                            </div>
+
+                            <div class="text-center mt-2">
+                                <a class="small" href="{{ url_for('excluirUsuario') }}">Excluir conta</a>
                             </div>
                         </div>
                     </div>
