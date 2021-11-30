@@ -109,7 +109,7 @@ def createAccount():
             if not query:
                 if password == password2:
                     user = User(name, email, password)
-                    db.create("users", user)
+                    db.inserir("users", user)
                     login_user(user)
                     reg = Registro()
                     reg.registrarUsuarioCadastrado()

@@ -54,7 +54,7 @@ def adicionarApi(videoId):
         youtube = Youtube()
         video = youtube.retornarVideo(videoId)
         learningObject = LearningObject(video)
-        db.create("learningObject", learningObject)
+        db.inserir("learningObject", learningObject)
         reg = Registro()
         reg.registrarVideoAdicionado(videoId, True)
     except:
@@ -122,7 +122,7 @@ def LomApi(termo):
     youtube = Youtube()
     video = youtube.retornarVideo(termo)
     learningObject = LearningObject(video)
-    db.create("learningObject", learningObject)
+    db.inserir("learningObject", learningObject)
     return "ok"
 
 # Pesquisar video

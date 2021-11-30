@@ -14,7 +14,7 @@ class Registro():
         self.usuario = current_user.email
         self.acao = "Novo usuário registrado"
         self.data = datetime.today()
-        db.create("registro", self)
+        db.inserir("registro", self)
     
     def registrarUsuarioAtualizado(self, estadoAnterior, estadoAtual):
         self.usuario = current_user.email
@@ -24,13 +24,13 @@ class Registro():
         self.data = datetime.today()
         del self.estadoAnterior['password']
         del self.estadoAtual['password']
-        db.create("registro", self)
+        db.inserir("registro", self)
     
     def registrarUsuarioExcluido(self):
         self.usuario = current_user.email
         self.acao = "Usuário excluido"
         self.data = datetime.today()
-        db.create("registro", self)
+        db.inserir("registro", self)
     
     def registrarVideoAdicionado(self, videoId, api=False):
         if api:
@@ -40,7 +40,7 @@ class Registro():
         self.usuario = current_user.email
         self.acao = "Video adicionado" + mensagem + ", id: " + videoId
         self.data = datetime.today()
-        db.create("registro", self)
+        db.inserir("registro", self)
     
     def registrarVideoExcluido(self, videoId, api=False):
         if api:
@@ -50,7 +50,7 @@ class Registro():
         self.usuario = current_user.email
         self.acao = "Video excluido" + mensagem + ", id: " + videoId
         self.data = datetime.today()
-        db.create("registro", self)
+        db.inserir("registro", self)
     
     def registrarVideoAtualizado(self, estadoAnterior, estadoAtual, api=False):
         if api:
@@ -62,7 +62,7 @@ class Registro():
         self.estadoAnterior = estadoAnterior
         self.estadoAtual = estadoAtual
         self.data = datetime.today()
-        db.create("registro", self)
+        db.inserir("registro", self)
 
     def get_as_json(self):
         return self.__dict__
