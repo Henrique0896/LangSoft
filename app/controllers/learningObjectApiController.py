@@ -120,12 +120,9 @@ def documentacaoApi():
 def LomApi(termo):
     video = None
     youtube = Youtube()
-    try:
-        video = youtube.retornarVideo(termo)
-        learningObject = LearningObject(video)
-        db.create("learningObject", learningObject)
-    except Exception as e:
-        return {"ERRO"}
+    video = youtube.retornarVideo(termo)
+    learningObject = LearningObject(video)
+    db.create("learningObject", learningObject)
     return "ok"
 
 # Pesquisar video
@@ -136,6 +133,7 @@ def pesquisarApi(termo):
     youtube = Youtube()
     try:
         video = youtube.retornarVideo(termo)
+        video = video['informacoes']
     except Exception as e:
         return {"ERRO"}
     return Response(json.dumps(video, default=json_util.default, ensure_ascii=False), content_type="application/json; charset=utf-8")

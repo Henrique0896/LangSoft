@@ -1,6 +1,7 @@
-from app.models.settings.util import get_most_used_words
 
-class LearningObject():
+
+
+class LearningObject(object):
     def __init__(self, video):
         self.geral = {
             "identificador": {
@@ -8,68 +9,90 @@ class LearningObject():
                 "entrada":"https://www.youtube.com/watch?v="+video['informacoes']['items'][0]['id']
             },
             "titulo": video['informacoes']['items'][0]['snippet']['title'],
-            "idioma": "English",
+            "idioma": video['informacoes']['items'][0]['snippet']['defaultAudioLanguage'],
             "descricao": video['informacoes']['items'][0]['snippet']['description'],
-            "palavras_chave": None, #get_most_used_words(video, 5),
-            "cobertura": None,
-            "estrutura": None,
-            "nivel_de_agregacao": None,
+            "palavras_chave": None,
+            "cobertura": None, #região
+            "estrutura": "Coleção",
+            "nivel_de_agregacao": "2",
+            "subnivel_de_agregacao": "e",
+            "outros_termos": None,
+            "termos": None,
         }
         self.ciclo_de_vida = {
-            "versao": None,
-            "status": None,
+            "versao": video['informacoes']['items'][0]['snippet']['defaultAudioLanguage'],
+            "status": "final",
             "contribuinte": {
-                "entidade": None,
-                "data": None,
-                "papel": None
+                "entidade": "Youtube", 
+                "papel": "Distribuição", 
+                "data": video['informacoes']['items'][0]['snippet']['publishedAt']
             }
         }
         self.meta_metadados = {
             "identificador": {
-                "catalogo": None,
-                "entrada": None
+                "catalogo": "URI",
+                "entrada": None #uri deste serviço
             },
             "contribuinte": {
-                "entidade": "Youtube",
-                "data": None,
-                "papel": None,
+                "entidade": None, #usuario que criou o objeto
+                "data": None, #data da criacao
+                "papel": None,#papel do usuário
             },
-            "esquema_de_metadados": "IEEE LOM",
+            "esquema_de_metadados": "“LOMv1.0",
             "idioma": "Português"
         }
-        self.metadados_tecnicos = {
-            "formato": "text/html",
-            "tamanho": None, #len(list(video.content)),
-            "localizacao": None,
-            "requisitos": None,
+        self.dados_tecnicos = {
+            "formato": "video",
+            "tamanho": None, #tamanho do vido em bytes
+            "localizacao":None, #url deste LOM
+            "requisitos": None, #Capacidade técnica necessário para acessar esse objeto
             "observacoes_de_Instalacoes": None,
+            "OuComposto": {
+                "tipo": None,
+                "nome": None,
+                "versao_minima": None,
+                "versao_maxima": None,
+            },
             "outros_requisitos_de_sistema": None,
+            "observacoes_de_instalacao": None,
+            "outros_requisitos de plataforma": None,
             "duracao": None
         }
         self.aspectos_educacionais = {
             "tipo_de_iteratividade": "Expositiva",
-            "tipo_de_recurso_de_aprendizado": "Texto narrativo",
-            "nivel_de_interatividade": "Pequena",
-            "densidade_semantica": "Alta",
+            "tipo_de_recurso_de_aprendizado": "Vídeo",
+            "nivel_de_interatividade": "Baixa",
+            "densidade_semantica": None,
             "usuario_final": "Público geral",
             "contexto_de_aprendizagem": None,
-            "idade_recomendada": "Adulto",
+            "idade_recomendada": None,
             "grau_de_dificuldade": None,
             "tempo_de_aprendizado": None,
-            "descricao": None,
-            "linguagem": "Português"
+            "intervalo_de_tempo_de_aprendizado": None,
+            "descricao": None, #Comentarios
+            "linguagem": None,
+            "dominio_cognitivo": None,
+            "estrategia_cognitiva": None,
+
         }
         self.direitos = {
-            "custo": 0.0,
-            "direitos_autorais": "Domínio público",
-            "descricao": None
+            "custo": "Não",
+            "direitos_autorais": "Sim",
+            "descricao": "Este objeto de aprendizagem é de uso livre"
         }
         self.relacoes = {
-            "genero": "Fontes Externas",
-            "recurso": {
-                "referencias": None,
-                "links_externos": None
-            }
+            "tipo": None,
+            "recurso": None,
+            "identificador": {
+                "catalogo": "URI",
+                "entrada": None #uri deste serviço
+            },
+            "descricao": None
+        }
+        self.anotacoes = {
+            "entidade": None,
+            "data": None,
+            "descricao": None
         }
         self.classificacao = {
             "finalidade": None,
@@ -77,11 +100,16 @@ class LearningObject():
             "descricao": None,
             "palavra_chave": None
         }
-        self.conteudo = {
-            "data": None,
-            "entidade": None,
-            "imagens": None,
-            "comentarios": None,
+        self.classificacao = {
+            "1": None,
+            "2": None,
+            "3": None,
+            "4": None,
+            "5": None,
+            "6": None,
+            "7": None,
+            "8": None,
+            "9": None,
         }
     
 
