@@ -58,7 +58,7 @@ class Registro():
         else:
             mensagem = ""
         self.usuario = current_user.email
-        self.acao = "Video editado" + mensagem + ", id: " + estadoAtual['geral']['id']
+        self.acao = "Video editado" + mensagem + ", id: " + str(estadoAtual['_id'])
         self.estadoAnterior = estadoAnterior
         self.estadoAtual = estadoAtual
         self.data = datetime.today()

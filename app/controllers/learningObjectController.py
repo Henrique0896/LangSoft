@@ -58,14 +58,14 @@ def excluirVideo(objetoId):
     return render_template('removido.html', tituloObjeto=objetoAprendizagem['geral']['titulo'])
 
 
-# Listar informações do video no sistema
+# Listar informações do objeto de aprendizagem no sistema
 @app.route("/listar/<objetoId>", methods=['GET'])
 @login_required
 def listarVideo(objetoId):
     try:
         objetoAprendizagem = db.buscarObjeto('objetoAprendizagem', objetoId)
     except:
-        flash("Video não encontrado")
+        flash("Objeto de aprendizagem não encontrado")
         return redirect(url_for("errorPage"))
     return render_template('listar.html', objeto=objetoAprendizagem, objetoId=objetoId)
 
@@ -94,18 +94,18 @@ def pesquisar():
     return render_template('pesquisar.html', form=form, videos=videos, filtro=filtro)
 
 # Editar vídeo salvo no sistema
-@app.route("/editar/<videoId>", methods=['GET', 'POST'])
+@app.route("/editar/<objetoId>", methods=['GET', 'POST'])
 @login_required
-def editar(videoId):
-    [video] = db.filtrar('objetoAprendizagem', {"geral.id": videoId})
-    videoAntigo = copy.deepcopy(video)
+def editar(objetoId):
+    video = db.buscarObjeto('objetoAprendizagem', objetoId)
+    objetoAntigo = copy.deepcopy(video)
     form = updateGeral()
     if form.validate_on_submit():
         video = ManipulacaoForm.atualizarObjeto(form, video)
         db.update('objetoAprendizagem', video)
         reg = Registro()
-        reg.registrarVideoAtualizado(videoAntigo, video)
-        return redirect(url_for("listarVideo", videoId=videoId))
+        reg.registrarVideoAtualizado(objetoAntigo, video)
+        return redirect(url_for("listarVideo", objetoId=objetoId))
     else:
         form = ManipulacaoForm.preencher(form, video)
     return render_template('atualizar.html', video=video, form=form)

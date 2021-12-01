@@ -1,6 +1,3 @@
-
-
-
 class LearningObject(object):
     def __init__(self, video):
         self.geral = {
