@@ -12,7 +12,7 @@ from app.models.registroModel import Registro
 # Listar vídeos salvos no sistema
 @app.route("/api/lista", methods=['GET'])
 def lista():
-    videos = db.list("learningObject")
+    videos = db.list('objetoAprendizagem')
     if (len(videos) == 0):
         return ({"success :": False, "message": "Nao existe nenhum registro para a consulta"})
     else:
@@ -22,7 +22,7 @@ def lista():
 # Listar títulos dos vídeos
 @app.route("/api/titulos", methods=['GET'])
 def titulos():
-    videos = db.list("learningObject")
+    videos = db.list('objetoAprendizagem')
     titulos = []
     if (len(videos) == 0):
         return ({"success :": False, "message": "Nao existe nenhum registro para a consulta"})
@@ -38,7 +38,7 @@ def consulta(campo, termo):
     if (campo not in keys):
         return ({"success": False, "message": "Campo inexistente"})
     for subCampo in keys[campo].values():
-        resultado = db.filter_by('learningObject', {subCampo: termo})
+        resultado = db.filtrar('objetoAprendizagem', {subCampo: termo})
         informacoes.append(json.dumps(resultado, default=json_util.default,
         ensure_ascii=False)) if (len(resultado)) != 0 else None
     if (len(informacoes) < 1):
@@ -66,8 +66,8 @@ def adicionarApi(videoId):
 @app.route("/api/excluir/<videoId>/", methods=['GET', 'POST'])
 def excluirVideoApi(videoId):
     try:
-        [video] = db.filter_by('learningObject', {"geral.id": videoId})
-        db.delete("learningObject", video)
+        [video] = db.filtrar('objetoAprendizagem', {"geral.id": videoId})
+        db.delete('objetoAprendizagem', video)
         reg = Registro()
         reg.registrarVideoExcluido(videoId, True)
         return Response({"success": True}, content_type="application/json; charset=utf-8")
@@ -80,7 +80,7 @@ def excluirVideoApi(videoId):
 def editarVideoApi(videoId, campo, dados):
     try:
         if campo == "geral-id": raise Exception
-        [video] = db.filter_by('learningObject', {"geral.id": videoId})
+        [video] = db.filtrar('objetoAprendizagem', {"geral.id": videoId})
         videoAntigo = copy.deepcopy(video)
         secoes = str.split(campo, "-")
         if len(secoes) == 2:
@@ -88,7 +88,7 @@ def editarVideoApi(videoId, campo, dados):
         elif len(secoes) == 3:
             video[secoes[0]][secoes[1]][secoes[2]] = dados
         else: raise Exception
-        db.update("learningObject", video)
+        db.update('objetoAprendizagem', video)
         reg = Registro()
         reg.registrarVideoAtualizado(videoAntigo, video, True)
         return Response({"success": True}, content_type="application/json; charset=utf-8")

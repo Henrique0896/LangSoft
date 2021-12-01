@@ -30,13 +30,13 @@ class User(object):
 
     
     def get_id(self):
-        query = db.filter_by('users', {"email": self.email})
+        query = db.filtrar('users', {"email": self.email})
         user_bd = query[0]
         return str(user_bd['email'])
 
     @staticmethod
     def get(user_id):
-        query = db.filter_by('users', {"email": user_id})
+        query = db.filtrar('users', {"email": user_id})
         if query:
             user_bd = query[0]
             user = User(user_bd['name'], user_bd['email'], user_bd['password'])

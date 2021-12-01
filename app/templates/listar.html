@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} LangSoft - {{video['geral']['titulo']}} {% endblock %}
+{% block title %} LangSoft - {{objeto['geral']['titulo']}} {% endblock %}
 
 {% block main %}
 
@@ -10,11 +10,11 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
 
-        <h3 class="h3 mb-0 text-gray-800">{{video['geral']['titulo']}}</h3>
+        <h3 class="h3 mb-0 text-gray-800">{{objeto['geral']['titulo']}}</h3>
 
         <!-- Botão Editar -->
         <div style="margin-bottom: 30px; margin-left: 15px ;">
-            <a href="{{ url_for('editar', videoId=videoId) }}" class="btn btn-warning btn-icon-split">
+            <a href="{{ url_for('editar', videoId=objetoId) }}" class="btn btn-warning btn-icon-split">
                 <span class="icon text-white-50">
                     <i class="fas fa-pen"></i>
                 </span>
@@ -27,40 +27,39 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-
             <div class="d-sm-flex justify-content-between" style="margin-left: 15px; margin-top: 10px;">
                 <h4 class="m-0 font-weight-bold text-primary">Geral</h4>
-
                 <!-- Botão Minimizar -->
                 <div id="minimizeGeral" style=" margin-top: -10px ;">
                     <a class="btn btn-info btn-circle">
                         <span class="icon text-white-50">
                             <i class="fas fa-compress"></i>
                         </span>
-
                     </a>
                 </div>
-
             </div>
-
         </div>
-
-
         <div id="geral" class="card-body">
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm">
-                        <p><b>Id:</b> {{video['geral']['id']}}</p>
-                        <p><b>Título:</b> {{video['geral']['titulo']}}</p>
-                        <p><b>Idioma:</b> {{video['geral']['idioma']}}</p>
-                        <p><b>Descrição:</b> {{video['geral']['descricao']}}</p>
-                        <p><b>Palavras Chave:</b> {{video['geral']['palavras_chave']}}</p>
-                        <p><b>Cobertura:</b> {{video['geral']['cobertura']}}</p>
-                        <p><b>Estrutura:</b> {{video['geral']['estrutura']}}</p>
-                        <p><b>Nível de Agregação:</b> {{video['geral']['nivel_de_agregacao']}}</p>
+                        <p><b>Identificador:</b></p>
+                        <div style="margin-left: 15px;">
+                            <p><b>Catálogo:</b> {{objeto['geral']['identificador']['catalogo']}}</p>
+                            <p><b>Entrada:</b> {{objeto['geral']['identificador']['entrada']}}</p>
+                        </div>
+                        <p><b>Título:</b> {{objeto['geral']['titulo']}}</p>
+                        <p><b>Idioma:</b> {{objeto['geral']['idioma']}}</p>
+                        <p><b>Descrição:</b> {{objeto['geral']['descricao']}}</p>
+                        <p><b>Palavras Chave:</b> {{objeto['geral']['palavras_chave']}}</p>
+                        <p><b>Cobertura:</b> {{objeto['geral']['cobertura']}}</p>
+                        <p><b>Estrutura:</b> {{objeto['geral']['estrutura']}}</p>
+                        <p><b>Nível de Agregação:</b> {{objeto['geral']['nivel_de_agregacao']}}</p>
+                        <p><b>Sub nível de Agregação:</b> {{objeto['geral']['subnivel_de_agregacao']}}</p>
+                        <p><b>Outros termos:</b> {{objeto['geral']['outros_termos']}}</p>
+                        <p><b>Termos:</b> {{objeto['geral']['termos']}}</p>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -96,21 +95,18 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm">
-                        <p><b>1. Versão:</b> {{video['ciclo_de_vida']['versao']}}</p>
-                        <p><b>2. Status:</b> {{video['ciclo_de_vida']['status']}}</p>
-                        <p><b> 3. Contribuinte:</b><br />
+                        <p><b>Versão:</b> {{objeto['ciclo_de_vida']['versao']}}</p>
+                        <p><b>Status:</b> {{objeto['ciclo_de_vida']['status']}}</p>
+                        <p><b>Contribuinte:</b><br />
                         <div style="margin-left: 15px;">
-                            <p><b> 3.1 Entidade:</b> {{video['ciclo_de_vida']['contribuinte']['entidade']}}</p>
-                            <p><b>3.2 Data:</b> {{video['ciclo_de_vida']['contribuinte']['data']}}</p>
-                            <p><b>3.3 Papel:</b> {{video['ciclo_de_vida']['contribuinte']['papel']}}</p>
+                            <p><b>Entidade:</b> {{objeto['ciclo_de_vida']['contribuinte']['entidade']}}</p>
+                            <p><b>Data:</b> {{objeto['ciclo_de_vida']['contribuinte']['data']}}</p>
+                            <p><b>Papel:</b> {{objeto['ciclo_de_vida']['contribuinte']['papel']}}</p>
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
 
 
@@ -140,15 +136,19 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm">
-                        <p>1. Identificador</p>
-                        <p><b>1.1 Catalogo:</b> {{video['meta_metadados']['identificador']['catalogo']}}</p>
-                        <p><b>1.2 Entrada:</b> {{video['meta_metadados']['identificador']['entrada']}}</p>
-                        <p>2. Contribuinte</p>
-                        <p><b>2.1 Entidade:</b> {{video['meta_metadados']['contribuinte']['entidade']}}</p>
-                        <p><b>2.2 Data:</b> {{video['meta_metadados']['contribuinte']['data']}}</p>
-                        <p><b>2.3 Papel:</b> {{video['meta_metadados']['contribuinte']['papel']}}</p>
-                        <p><b>3. Esquema de Metadados:</b> {{video['meta_metadados']['esquema_de_metadados']}}</p>
-                        <p><b>4. Idioma:</b> {{video['meta_metadados']['idioma']}}</p>
+                        <p><b>Identificador:</b></p>
+                        <div style="margin-left: 15px;">
+                            <p><b>Catalogo:</b> {{objeto['meta_metadados']['identificador']['catalogo']}}</p>
+                            <p><b>Entrada:</b> {{objeto['meta_metadados']['identificador']['entrada']}}</p>
+                        </div>
+                        <p><b>Contribuinte</b></p>
+                        <div style="margin-left: 15px;">
+                            <p><b>Entidade:</b> {{objeto['meta_metadados']['contribuinte']['entidade']}}</p>
+                            <p><b>Data:</b> {{objeto['meta_metadados']['contribuinte']['data']}}</p>
+                            <p><b>Papel:</b> {{objeto['meta_metadados']['contribuinte']['papel']}}</p>
+                        </div>
+                        <p><b>Esquema de Metadados:</b> {{objeto['meta_metadados']['esquema_de_metadados']}}</p>
+                        <p><b>Idioma:</b> {{objeto['meta_metadados']['idioma']}}</p>
                     </div>
                 </div>
 
@@ -163,7 +163,7 @@
 
         <div class="card-header py-3">
             <div class="d-sm-flex justify-content-between" style="margin-left: 15px; margin-top: 10px;">
-                <h4 class="m-0 font-weight-bold text-primary">Meta Técnicos</h4>
+                <h4 class="m-0 font-weight-bold text-primary">Dados Técnicos</h4>
 
                 <!-- Botão Minimizar -->
                 <div id="minimizeMetadados" style=" margin-top: -10px ;">
@@ -183,15 +183,25 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm">
-                        <p><b>1. Formato:</b> {{video['metadados_tecnicos']['formato']}}</p>
-                        <p><b>2. Tamanho:</b> {{video['metadados_tecnicos']['tamanho']}}</p>
-                        <p><b>3. Localização:</b> {{video['metadados_tecnicos']['localizacao']}}</p>
-                        <p><b>4. Requisitos:</b> {{video['metadados_tecnicos']['requisitos']}}</p>
-                        <p><b>5. Observações de Instalações:</b>
-                            {{video['metadados_tecnicos']['observacoes_de_Instalacoes']}}</p>
-                        <p><b>6. Outros Requisitos de Sistema:</b>
-                            {{video['metadados_tecnicos']['outros_requisitos_de_sistema']}}</p>
-                        <p><b>7. Duração:</b> {{video['metadados_tecnicos']['duracao']}}</p>
+                        <p><b>Formato:</b> {{objeto['dados_tecnicos']['formato']}}</p>
+                        <p><b>Tamanho:</b> {{objeto['dados_tecnicos']['tamanho']}}</p>
+                        <p><b>Localização:</b> {{objeto['dados_tecnicos']['localizacao']}}</p>
+                        <p><b>Requisitos:</b> {{objeto['dados_tecnicos']['requisitos']}}</p>
+                        <p><b>Observações de Instalações:</b>
+                            {{objeto['dados_tecnicos']['observacoes_de_Instalacoes']}}</p>
+                        <p><b>Ou Composto:</b></p>
+
+                        <div style="margin-left: 15px;">
+                            <p><b>Tipo:</b> {{objeto['dados_tecnicos']['ou_composto']['tipo']}}</p>
+                            <p><b>Nome:</b> {{objeto['dados_tecnicos']['ou_composto']['nome']}}</p>
+                            <p><b>Versão Mínima:</b> {{objeto['dados_tecnicos']['ou_composto']['versao_minima']}}</p>
+                            <p><b>Versão Máxima:</b> {{objeto['dados_tecnicos']['ou_composto']['versao_maxima']}}</p>
+                        </div>
+                        <p><b>Outros Requisitos de Sistema:</b>
+                            {{objeto['dados_tecnicos']['outros_requisitos_de_sistema']}}</p>
+                            <p><b>Outros Requisitos de Plataforma:</b>
+                                {{objeto['dados_tecnicos']['outros_requisitos_de_plataforma']}}</p>
+                        <p><b>Duração:</b> {{objeto['dados_tecnicos']['duracao']}}</p>
                     </div>
                 </div>
 
@@ -226,26 +236,27 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm">
-                        <p><b>1. Tipo de iteratividade:</b>
-                            {{video['aspectos_educacionais']['tipo_de_iteratividade']}}
+                        <p><b>Tipo de interatividade:</b>
+                            {{objeto['aspectos_educacionais']['tipo_de_iteratividade']}}
                         </p>
-                        <p><b>2. Tipo de recurso de aprendizado:</b>
-                            {{video['aspectos_educacionais']['tipo_de_recurso_de_aprendizado']}}</p>
-                        <p><b>3. Nível de iteratividade:</b>
-                            {{video['aspectos_educacionais']['nivel_de_interatividade']}}</p>
-                        <p><b>4. Densidade Semantica:</b> {{video['aspectos_educacionais']['densidade_semantica']}}
+                        <p><b>Tipo de recurso de aprendizado:</b>
+                            {{objeto['aspectos_educacionais']['tipo_de_recurso_de_aprendizado']}}</p>
+                        <p><b>Nível de iteratividade:</b>
+                            {{objeto['aspectos_educacionais']['nivel_de_interatividade']}}</p>
+                        <p><b>Densidade Semântica:</b> {{objeto['aspectos_educacionais']['densidade_semantica']}}
                         </p>
-                        <p><b>5. Usuário final:</b> {{video['aspectos_educacionais']['usuario_final']}}</p>
-                        <p><b>6. Contexto de aprendizagem:</b>
-                            {{video['aspectos_educacionais']['contexto_de_aprendizagem']}}</p>
-                        <p><b>7. Idade Recomendada:</b> {{video['aspectos_educacionais']['idade_recomendada']}}</p>
-                        <p><b>8. Grau de Dificuldade:</b> {{video['aspectos_educacionais']['grau_de_dificuldade']}}
+                        <p><b>Usuário final:</b> {{objeto['aspectos_educacionais']['usuario_final']}}</p>
+                        <p><b>Contexto de aprendizagem:</b>
+                            {{objeto['aspectos_educacionais']['contexto_de_aprendizagem']}}</p>
+                        <p><b>Idade Recomendada:</b> {{objeto['aspectos_educacionais']['idade_recomendada']}}</p>
+                        <p><b>Grau de Dificuldade:</b> {{objeto['aspectos_educacionais']['grau_de_dificuldade']}}
                         </p>
-                        <p><b>9. Tempo de Aprendizado:</b> {{video['aspectos_educacionais']['tempo_de_aprendizado']}}
+                        <p><b>Tempo de Aprendizado:</b> {{objeto['aspectos_educacionais']['tempo_de_aprendizado']}}
                         </p>
-                        <p><b>10. Descrição:</b> {{video['aspectos_educacionais']['descricao']}}</p>
-                        <p><b>11. Linguagem:</b> {{video['aspectos_educacionais']['linguagem']}}</p>
-
+                        <p><b>Descrição:</b> {{objeto['aspectos_educacionais']['descricao']}}</p>
+                        <p><b>Linguagem:</b> {{objeto['aspectos_educacionais']['linguagem']}}</p>
+                        <p><b>Domínio Cognitivo:</b> {{objeto['aspectos_educacionais']['dominio_cognitivo']}}</p>
+                        <p><b>Estratégia Cognitiva:</b> {{objeto['aspectos_educacionais']['estrategia_cognitiva']}}</p>
                     </div>
                 </div>
 
@@ -284,9 +295,9 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm">
-                        <p><b>1. Custo:</b> {{video['direitos']['custo']}}</p>
-                        <p><b>2. Direitos Autorais:</b> {{video['direitos']['direitos_autorais']}}</p>
-                        <p><b>3. Descrição:</b> {{video['direitos']['descricao']}}</p>
+                        <p><b>Custo:</b> {{objeto['direitos']['custo']}}</p>
+                        <p><b>Direitos Autorais:</b> {{objeto['direitos']['direitos_autorais']}}</p>
+                        <p><b>Descrição:</b> {{objeto['direitos']['descricao']}}</p>
                     </div>
                 </div>
 
@@ -322,13 +333,49 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm">
-                        <p><b>1. Gênero:</b> {{video['relacoes']['genero']}}</p>
-                        <p>2. Recurso:</p>
+                        <p><b>Tipo:</b> {{objeto['relacoes']['tipo']}}</p>
+                        <p><b>Recurso:</b> {{objeto['relacoes']['recurso']}}</p>
+                        <p><b>Identificador:</b></p>
                         <div style="margin-left: 15px;">
-                            <p><b>2.1 Referências:</b> {{video['relacoes']['recurso']['referencias']}}</p>
-                            <p><b>2.2 Links Externos:</b> {{video['relacoes']['recurso']['links_externos']}}</p>
-                            </p>
+                            <p><b>Catalogo:</b> {{objeto['relacoes']['identificador']['catalogo']}}</p>
+                            <p><b>Entrada:</b> {{objeto['relacoes']['identificador']['entrada']}}</p>
                         </div>
+                        <p><b>Descrição:</b> {{objeto['relacoes']['descricao']}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+     <!-- DataTales Example -->
+     <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="d-sm-flex justify-content-between" style="margin-left: 15px; margin-top: 10px;">
+                <h4 class="m-0 font-weight-bold text-primary">Anotações</h4>
+
+                <!-- Botão Minimizar -->
+                <div id="minimizeAnotacoes" style=" margin-top: -10px ;">
+                    <a class="btn btn-info btn-circle">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-compress"></i>
+                        </span>
+
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div id="anotacoes" class="card-body">
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm">
+                        <p><b>Entidade:</b> {{objeto['anotacoes']['entidade']}}</p>
+                        <p><b>Data:</b> {{objeto['anotacoes']['data']}}</p>
+                        <p><b>Descrição:</b> {{objeto['anotacoes']['descricao']}}</p>
                     </div>
                 </div>
 
@@ -365,56 +412,21 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm">
-                        <p><b>1. Finalidade:</b> {{video['classificacao']['finalidade']}}</p>
-                        <p><b>2. Diretório:</b> {{video['classificacao']['diretorio']}}</p>
-                        <p><b>3. Descrição:</b> {{video['classificacao']['descricao']}}</p>
-                        <p><b>4. Palavra Chave:</b> {{video['classificacao']['palavra_chave']}}</p>
+                        <p><b>Propósito:</b> {{objeto['classificacao']['proposito']}}</p>
+                        <p><b>Caminho Táxon:</b> 
+                        <div style="margin-left: 15px;">
+                            <p><b>Fonte:</b> {{objeto['classificacao']['caminho_taxon']['fonte']}}</p>
+                            <p><b>Táxon:</b> {{objeto['classificacao']['caminho_taxon']['taxon']}}</p>
+                            <p><b>Id:</b> {{objeto['classificacao']['caminho_taxon']['id']}}</p>
+                            <p><b>Entrada:</b> {{objeto['classificacao']['caminho_taxon']['entrada']}}</p>
+                        </div>
+                        <p><b>Descrição:</b> {{objeto['classificacao']['descricao']}}</p>
+                        <p><b>Palavras Chave:</b> {{objeto['classificacao']['palavras_chave']}}</p>
                     </div>
                 </div>
 
             </div>
         </div>
-
-
-    </div>
-
-
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <div class="d-sm-flex justify-content-between" style="margin-left: 15px; margin-top: 10px;">
-                <h4 class="m-0 font-weight-bold text-primary">Conteúdo</h4>
-
-                <!-- Botão Minimizar -->
-                <div id="minimizeConteudo" style=" margin-top: -10px ;">
-                    <a class="btn btn-info btn-circle">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-compress"></i>
-                        </span>
-
-                    </a>
-                </div>
-
-            </div>
-        </div>
-
-
-        <div id="conteudo" class="card-body">
-            <div class="table-responsive">
-                <div class="row">
-                    <div class="col-sm">
-                        <p><b>1. Data:</b> {{video['conteudo']['data']}}</p>
-                        <p><b>2. Entidade:</b> {{video['conteudo']['entidade']}}</p>
-                        <p><b>3. Imagens:</b> {{video['conteudo']['imagens']}}</p>
-                        <p><b>4. Comentários:</b> {{video['conteudo']['comentarios']}}</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-
 
 
     </div>
@@ -447,7 +459,7 @@
                 $("#geral").css("display", "block")
             }
         })
-        $("#minimizeCiclo").click(
+    $("#minimizeCiclo").click(
         function () {
             if ($("#ciclo").is(":visible")) {
                 $("#ciclo").css("display", "none")
@@ -455,7 +467,7 @@
                 $("#ciclo").css("display", "block")
             }
         })
-        $("#minimizeMeta").click(
+    $("#minimizeMeta").click(
         function () {
             if ($("#meta").is(":visible")) {
                 $("#meta").css("display", "none")
@@ -463,7 +475,7 @@
                 $("#meta").css("display", "block")
             }
         })
-        $("#minimizeMetadados").click(
+    $("#minimizeMetadados").click(
         function () {
             if ($("#metadados").is(":visible")) {
                 $("#metadados").css("display", "none")
@@ -471,7 +483,7 @@
                 $("#metadados").css("display", "block")
             }
         })
-        $("#minimizeAspectos").click(
+    $("#minimizeAspectos").click(
         function () {
             if ($("#aspectos").is(":visible")) {
                 $("#aspectos").css("display", "none")
@@ -479,7 +491,7 @@
                 $("#aspectos").css("display", "block")
             }
         })
-        $("#minimizeDireitos").click(
+    $("#minimizeDireitos").click(
         function () {
             if ($("#direitos").is(":visible")) {
                 $("#direitos").css("display", "none")
@@ -487,7 +499,7 @@
                 $("#direitos").css("display", "block")
             }
         })
-        $("#minimizeRelacoes").click(
+    $("#minimizeRelacoes").click(
         function () {
             if ($("#relacoes").is(":visible")) {
                 $("#relacoes").css("display", "none")
@@ -495,7 +507,7 @@
                 $("#relacoes").css("display", "block")
             }
         })
-        $("#minimizeClassificacao").click(
+    $("#minimizeClassificacao").click(
         function () {
             if ($("#classificacao").is(":visible")) {
                 $("#classificacao").css("display", "none")
@@ -503,12 +515,13 @@
                 $("#classificacao").css("display", "block")
             }
         })
-        $("#minimizeConteudo").click(
+    
+        $("#minimizeAnotacoes").click(
         function () {
-            if ($("#conteudo").is(":visible")) {
-                $("#conteudo").css("display", "none")
+            if ($("#anotacoes").is(":visible")) {
+                $("#anotacoes").css("display", "none")
             } else {
-                $("#conteudo").css("display", "block")
+                $("#anotacoes").css("display", "block")
             }
         })
 </script>

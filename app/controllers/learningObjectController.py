@@ -14,7 +14,7 @@ import copy
 @app.route("/")
 @login_required
 def index():
-    videos = db.list("learningObject")
+    videos = db.list('objetoAprendizagem')
     return render_template('index.html', videos=videos)
 
 # Escolher vídeo a ser adicionado
@@ -51,23 +51,23 @@ def adicionarVideo(videoId):
 @app.route("/excluir/<objetoId>", methods=['DELETE', 'GET'])
 @login_required
 def excluirVideo(objetoId):
-    objetoAprendizagem = db.buscarObjeto('learningObject', objetoId)
-    db.delete("learningObject", objetoAprendizagem)
+    objetoAprendizagem = db.buscarObjeto('objetoAprendizagem', objetoId)
+    db.delete('objetoAprendizagem', objetoAprendizagem)
     reg = Registro()
     reg.registrarVideoExcluido(objetoId)
-    return render_template('removido.html', tituloVideo=objetoAprendizagem['geral']['titulo'])
+    return render_template('removido.html', tituloObjeto=objetoAprendizagem['geral']['titulo'])
 
 
 # Listar informações do video no sistema
-@app.route("/listar/<videoId>", methods=['GET'])
+@app.route("/listar/<objetoId>", methods=['GET'])
 @login_required
-def listarVideo(videoId):
+def listarVideo(objetoId):
     try:
-        [video] = db.filter_by('learningObject', {"geral.id": videoId})
+        objetoAprendizagem = db.buscarObjeto('objetoAprendizagem', objetoId)
     except:
         flash("Video não encontrado")
         return redirect(url_for("errorPage"))
-    return render_template('listar.html', video=video, videoId=videoId)
+    return render_template('listar.html', objeto=objetoAprendizagem, objetoId=objetoId)
 
 
 # Pesquisar informações sobre um vídeo adicionado no sistema
@@ -83,7 +83,7 @@ def pesquisar():
         campo = form.subject.data
         resultados = []
         for subCampo in keys[campo].values():
-            resultado = db.filter_by('learningObject', {subCampo: filtro})
+            resultado = db.filtrar('objetoAprendizagem', {subCampo: filtro})
             if(resultado):
                 resultados.append(resultado)
         for resultado in resultados:
@@ -97,12 +97,12 @@ def pesquisar():
 @app.route("/editar/<videoId>", methods=['GET', 'POST'])
 @login_required
 def editar(videoId):
-    [video] = db.filter_by('learningObject', {"geral.id": videoId})
+    [video] = db.filtrar('objetoAprendizagem', {"geral.id": videoId})
     videoAntigo = copy.deepcopy(video)
     form = updateGeral()
     if form.validate_on_submit():
         video = ManipulacaoForm.atualizarObjeto(form, video)
-        db.update("learningObject", video)
+        db.update('objetoAprendizagem', video)
         reg = Registro()
         reg.registrarVideoAtualizado(videoAntigo, video)
         return redirect(url_for("listarVideo", videoId=videoId))

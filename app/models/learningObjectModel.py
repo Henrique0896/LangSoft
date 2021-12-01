@@ -9,7 +9,7 @@ class LearningObject(object):
                 "entrada":"https://www.youtube.com/watch?v="+video['informacoes']['items'][0]['id']
             },
             "titulo": video['informacoes']['items'][0]['snippet']['title'],
-            "idioma": video['informacoes']['items'][0]['snippet']['defaultAudioLanguage'],
+            "idioma": None, #video['informacoes']['items'][0]['snippet']['defaultAudioLanguage'] None,
             "descricao": video['informacoes']['items'][0]['snippet']['description'],
             "palavras_chave": None,
             "cobertura": None, #região
@@ -20,7 +20,7 @@ class LearningObject(object):
             "termos": None,
         }
         self.ciclo_de_vida = {
-            "versao": video['informacoes']['items'][0]['snippet']['defaultAudioLanguage'],
+            "versao": None, #video['informacoes']['items'][0]['snippet']['defaultAudioLanguage'],
             "status": "final",
             "contribuinte": {
                 "entidade": "Youtube", 
@@ -38,7 +38,7 @@ class LearningObject(object):
                 "data": None, #data da criacao
                 "papel": None,#papel do usuário
             },
-            "esquema_de_metadados": "“LOMv1.0",
+            "esquema_de_metadados": "LOMv1.0",
             "idioma": "Português"
         }
         self.dados_tecnicos = {
@@ -47,7 +47,7 @@ class LearningObject(object):
             "localizacao":None, #url deste LOM
             "requisitos": None, #Capacidade técnica necessário para acessar esse objeto
             "observacoes_de_Instalacoes": None,
-            "OuComposto": {
+            "ou_composto": {
                 "tipo": None,
                 "nome": None,
                 "versao_minima": None,
@@ -55,11 +55,11 @@ class LearningObject(object):
             },
             "outros_requisitos_de_sistema": None,
             "observacoes_de_instalacao": None,
-            "outros_requisitos de plataforma": None,
+            "outros_requisitos_de_plataforma": None,
             "duracao": None
         }
         self.aspectos_educacionais = {
-            "tipo_de_iteratividade": "Expositiva",
+            "tipo_de_interatividade": "Expositiva",
             "tipo_de_recurso_de_aprendizado": "Vídeo",
             "nivel_de_interatividade": "Baixa",
             "densidade_semantica": None,
@@ -93,12 +93,6 @@ class LearningObject(object):
             "entidade": None,
             "data": None,
             "descricao": None
-        }
-        self.classificacao = {
-            "finalidade": None,
-            "diretorio": None,
-            "descricao": None,
-            "palavra_chave": None
         }
         self.classificacao = {
             "proposito": None,

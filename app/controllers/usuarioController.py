@@ -18,7 +18,7 @@ def login():
             email = form.email.data
             password = form.password.data
             try:
-                [usuario] = db.filter_by('users', {"email": email})
+                [usuario] = db.filtrar('users', {"email": email})
             except:
                 usuario = None
             if usuario:
@@ -59,7 +59,7 @@ def perfil():
         new_password = form.new_password.data
         repeat_new_password = form.repeat_new_password.data
         # Saber se email é o mesmo
-        query = db.filter_by('users', {"email": email})
+        query = db.filtrar('users', {"email": email})
         if query:
             user_bd = query[0]
             is_email_used = True
@@ -69,7 +69,7 @@ def perfil():
             is_email_same = False
         if not is_email_used or is_email_same:
             #verificar se a senha atual é igual
-            user_bd = db.filter_by('users', {"email": current_user.email})
+            user_bd = db.filtrar('users', {"email": current_user.email})
             user_bd = user_bd[0]
             is_pass_ok = check_password_hash(user_bd['password'], current_password)
             if is_pass_ok:
@@ -105,7 +105,7 @@ def createAccount():
             email = form.email.data
             password = form.password.data
             password2 = form.repeat_password.data
-            query = db.filter_by('users', {"email": email})
+            query = db.filtrar('users', {"email": email})
             if not query:
                 if password == password2:
                     user = User(name, email, password)
@@ -130,7 +130,7 @@ def createAccount():
 @login_required
 def excluirUsuario():
     try:
-        [usuario] = db.filter_by('users', {"email": current_user.email})
+        [usuario] = db.filtrar('users', {"email": current_user.email})
         db.delete("users", usuario)
         reg = Registro()
         reg.registrarUsuarioExcluido()

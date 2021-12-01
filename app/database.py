@@ -31,8 +31,8 @@ class Database():
     def buscarObjeto(self, nomeColecao, objetoId):
         return self.database[str(nomeColecao)].find_one({"_id": ObjectId(objetoId)})
 
-    def filter_by(self, nomeColecao, filter_options):
-        return list(self.database[str(nomeColecao)].find(filter_options))
+    def filtrar(self, nomeColecao, termo):
+        return list(self.database[str(nomeColecao)].find(termo))
 
     def update(self, nomeColecao, objeto):
         objeto = dict(objeto)
