@@ -60,7 +60,7 @@
 
                         {% for video in videos %}
                         <tr>
-                            <td><a href="{{ url_for('listarVideo', videoId='id') }}">{{
+                            <td><a href="{{ url_for('listarVideo', videoId=video['_id']) }}">{{
                                     video['geral']['titulo'] }}
                                 </a>
                             </td>
@@ -71,7 +71,7 @@
                             <td>{{ video['dados_tecnicos']['tamanho'] }}</td>
 
                             <td>
-                                <a href="{{ url_for('excluirVideo', videoId='id') }}"
+                                <a href="{{ url_for('excluirVideo', objetoId=video['_id']) }}"
                                     class="btn btn-danger btn-circle btn-sm">
                                     <i class="fas fa-trash"></i>
                                 </a>

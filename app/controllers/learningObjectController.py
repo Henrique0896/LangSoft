@@ -42,7 +42,7 @@ def adicionarVideo(videoId):
     except Exception as e:
         flash("Erro ao buscar informações sobre vídeos na api: " + e.args )
     learningObject = LearningObject(video)
-    db.inserir("learningObject", learningObject)
+    db.inserir("objetoAprendizagem", learningObject)
     reg = Registro()
     reg.registrarVideoAdicionado(videoId)
     return render_template('adicionado.html', tituloVideo=learningObject.geral['titulo'])
@@ -55,7 +55,7 @@ def excluirVideo(objetoId):
     db.delete("learningObject", objetoAprendizagem)
     reg = Registro()
     reg.registrarVideoExcluido(objetoId)
-    return render_template('removido.html', tituloVideo=video['geral']['titulo'])
+    return render_template('removido.html', tituloVideo=objetoAprendizagem['geral']['titulo'])
 
 
 # Listar informações do video no sistema
