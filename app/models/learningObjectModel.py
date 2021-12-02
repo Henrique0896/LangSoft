@@ -43,16 +43,14 @@ class LearningObject(object):
             "tamanho": None, #tamanho do vido em bytes
             "localizacao":None, #url deste LOM
             "requisitos": None, #Capacidade técnica necessário para acessar esse objeto
-            "observacoes_de_Instalacoes": None,
             "ou_composto": {
                 "tipo": None,
                 "nome": None,
                 "versao_minima": None,
                 "versao_maxima": None,
             },
-            "outros_requisitos_de_sistema": None,
             "observacoes_de_instalacao": None,
-            "outros_requisitos_de_plataforma": None,
+            "outros_requisitos_de_sistema": None,
             "duracao": None
         }
         self.aspectos_educacionais = {
