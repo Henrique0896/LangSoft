@@ -64,7 +64,7 @@ class LearningObject(object):
             "grau_de_dificuldade": None,
             "tempo_de_aprendizado": None,
             "intervalo_de_tempo_de_aprendizado": None,
-            "descricao": None, #Comentarios
+            "descricao": video['comentarios'],
             "linguagem": None,
             "dominio_cognitivo": None,
             "estrategia_cognitiva": None,
@@ -99,6 +99,9 @@ class LearningObject(object):
             },
             "descricao": None,
             "palavras_chave": None,
+        }
+        self.conteudo = {
+            "imagem_padrao": video['informacoes']['items'][0]['snippet']['thumbnails']['default']['url'],
         }
     
 

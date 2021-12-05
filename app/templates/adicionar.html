@@ -58,14 +58,26 @@
                         <tbody>
 
                             {% for video in videos%}
+                            {%with img = video['img']%}
                             <tr>
                                 <td>
-                                    <a href="{{ url_for('adicionarVideo', videoId=video['id']) }}">
-                                        {{ video['titulo'] }}
-                                    </a>
+                                    <div class="row">
+                                        <a href="{{ url_for('adicionarVideo', videoId=video['id']) }}" class="col-lg-2 d-none d-lg-block" style="background: url('{{img}}');
+                                            background-position: center;
+                                            background-size: cover;
+                                            padding: 50px;"></a>
+                                        <div class="col-lg-10 d-flex align-content-center flex-wrap"><a
+                                                href="{{ url_for('adicionarVideo', videoId=video['id']) }}">
+                                                {{ video['titulo'] }}
+                                            </a>
+                                        </div>
+                                    </div>
+
                                 </td>
 
                             </tr>
+
+                            {%endwith%}
                             {% endfor %}
 
                         </tbody>

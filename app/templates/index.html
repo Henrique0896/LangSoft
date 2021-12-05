@@ -59,12 +59,26 @@
                     <tbody>
 
                         {% for video in videos %}
+                        {%with img = video['conteudo']['imagem_padrao']%}
                         <tr>
-                            <td><a href="{{ url_for('listarVideo', objetoId=video['_id']) }}">{{
-                                    video['geral']['titulo'] }}
-                                </a>
+                            <td>
+                                <div class="row">
+                                    <a href="{{ url_for('listarVideo', objetoId=video['_id']) }}"
+                                        class="col-lg-2 d-none d-lg-block" style="background: url('{{img}}');
+                                        background-position: center;
+                                        background-size: cover;
+                                        padding: 50px;"></a>
+                                    <div class="col-lg-10 d-flex align-content-center flex-wrap">
+                                        <a href="{{ url_for('listarVideo', objetoId=video['_id']) }}">
+                                            {{ video['geral']['titulo'] }}
+                                        </a>
+                                    </div>
+                                </div>
                             </td>
-                            <td>{{ video['geral']['idioma'] }}</td>
+                            <td>
+                                <div class="d-flex align-content-center flex-wrap"> {{ video['geral']['idioma'] }}
+                                </div>
+                            </td>
                             <td>{{
                                 video['geral']['palavras_chave']
                                 }}</td>
@@ -91,7 +105,8 @@
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">Você tem certeza que quer excluir "{{video['geral']['titulo'] }}"?</div>
+                                    <div class="modal-body">Você tem certeza que quer excluir
+                                        "{{video['geral']['titulo'] }}"?</div>
                                     <div class="modal-footer">
                                         <button class="btn btn-secondary" type="button"
                                             data-dismiss="modal">Cancelar</button>
@@ -101,6 +116,7 @@
                                 </div>
                             </div>
                         </div>
+                        {%endwith%}
                         {% endfor %}
 
                     </tbody>
