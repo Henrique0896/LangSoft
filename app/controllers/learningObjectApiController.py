@@ -132,8 +132,7 @@ def pesquisarApi(termo):
     video = None
     youtube = Youtube()
     try:
-        video = youtube.retornarVideo(termo)
-        video = video['informacoes']
+        video = youtube.buscarListaVideos(termo)
     except Exception as e:
         return {"ERRO"}
     return Response(json.dumps(video, default=json_util.default, ensure_ascii=False), content_type="application/json; charset=utf-8")
