@@ -27,8 +27,8 @@ def adicionar():
     if form.validate_on_submit():
         try:
             videos = youtube.buscarListaVideos(form.pesquisa.data)
-        except Exception as e:
-            flash("Erro ao buscar informações sobre vídeos na api: " + e.args)
+        except:
+            flash("Erro ao buscar informações sobre vídeos na api")
     return render_template('adicionar.html', form=form, videos=videos)
 
 # Adicionar vídeo ao sistema

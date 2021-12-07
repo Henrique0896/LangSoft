@@ -1,6 +1,6 @@
 from apiclient.discovery import build
 
-DEVELOPER_KEY = "AIzaSyBJPJzM0oyrZLthEiptqztpXs8JhzpIATI"
+DEVELOPER_KEY = "AIzaSyCGDNtQf2lyE-905kYNj-z37ObM-NzV33s"
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
 
@@ -12,19 +12,16 @@ class Youtube():
 
     def buscarListaVideos(self, termo):
         listaVideos = None
-        try:
-            listaVideosApi = self.apiYoutube.search().list(
-                q=termo,
-                part="id, snippet",
-                maxResults=20,
-                type='video',
-            ).execute()
-            listaVideos = []
-            for infoVideo in listaVideosApi.get("items", []):
-                listaVideos.append({"id": infoVideo['id']['videoId'], "titulo": infoVideo['snippet']
-                                   ['title'], "img": infoVideo['snippet']['thumbnails']['default']['url']})
-        except:
-            print("Erro ao buscar lista de vídeos")
+        listaVideosApi = self.apiYoutube.search().list(
+            q=termo,
+            part="id, snippet",
+            maxResults=20,
+            type='video',
+        ).execute()
+        listaVideos = []
+        for infoVideo in listaVideosApi.get("items", []):
+            listaVideos.append({"id": infoVideo['id']['videoId'], "titulo": infoVideo['snippet']
+                                ['title'], "img": infoVideo['snippet']['thumbnails']['default']['url']})
         return listaVideos
 
     def buscarVideo(self, id):
@@ -38,12 +35,13 @@ class Youtube():
             print("Erro ao buscar vídeo")
         return video
 
-    def buscarComentarios(self, id):
+    def  buscarComentarios(self, id):
         comentarios = []
         try:
             comentariosApi = self.apiYoutube.commentThreads().list(
                 part='snippet',
-                videoId=id
+                videoId=id,
+                maxResults=100,
             ).execute()
             for infoComentario in comentariosApi.get("items", []):
                 comentarios.append(infoComentario['snippet']['topLevelComment']['snippet']['textOriginal'])

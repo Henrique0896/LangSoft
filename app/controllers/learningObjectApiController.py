@@ -8,6 +8,8 @@ from app.models.constants.keys import keys
 from app.models.services.youtubeService import Youtube
 from app.models.learningObjectModel import LearningObject
 from app.models.registroModel import Registro
+from app.models.settings.pln import Pln
+
 
 # Listar vídeos salvos no sistema
 @app.route("/api/lista", methods=['GET'])
@@ -136,5 +138,19 @@ def pesquisarApi(termo):
     except Exception as e:
         return {"ERRO"}
     return Response(json.dumps(video, default=json_util.default, ensure_ascii=False), content_type="application/json; charset=utf-8")
+
+# Pesquisar video
+@app.route("/api/palavras-chave/comentarios/<objetoId>", methods=['GET'])
+@login_required
+def gerarPalavrasChaveComentarios(objetoId):
+    NUMERO_PALAVRAS = 30
+    objetoAprendizagem = db.buscarObjeto('objetoAprendizagem', objetoId)
+    comentarios = objetoAprendizagem['aspectos_educacionais']['descricao']
+    pln = Pln()
+    palavrasChave = pln.obterPalavrasChave(comentarios, NUMERO_PALAVRAS)
+    return Response(json.dumps({"palavrasChave": palavrasChave}, default=json_util.default, ensure_ascii=False), content_type="application/json; charset=utf-8")
+    
+
+
 
 
