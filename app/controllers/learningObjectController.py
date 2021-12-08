@@ -80,7 +80,7 @@ def pesquisar():
     if form.validate_on_submit():
         videos = []
         filtro = form.pesquisa.data
-        campo = form.subject.data
+        campo = form.campo.data
         resultados = []
         for subCampo in keys[campo].values():
             resultado = db.filtrar('objetoAprendizagem', {subCampo: filtro})

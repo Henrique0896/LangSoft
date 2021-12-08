@@ -7,10 +7,10 @@ class campoPesquisa(FlaskForm):
 
 class filtroDeDados(FlaskForm): 
     pesquisa = StringField("pesquisa", validators=[DataRequired()])
-    subject = SelectField(u'Campo', choices=[('geral','Geral'), ('ciclo_de_vida','Ciclo de Vida'),
-    ('meta_metadados','Meta Metadados'), ('metadados_tecnicos','Metadados Técnicos'),
+    campo = SelectField(u'Campo', choices=[('geral','Geral'), ('ciclo_de_vida','Ciclo de Vida'),
+    ('meta_metadados','Meta Metadados'), ('dados_tecnicos','Dados Técnicos'),
     ('aspectos_educacionais','Aspectos Educacionais'), ('direitos','Direitos'),
-    ('relacoes','Relações'), ('classificacao','Classificação'), ('conteudo','Conteúdo')])
+    ('relacoes','Relações'), ('anotacoes','Anotações'), ('classificacao','Classificação')])
 
 class updateGeral(FlaskForm): 
     g_i_catalogo = StringField("g_i_catalogo")
