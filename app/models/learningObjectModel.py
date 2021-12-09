@@ -80,7 +80,7 @@ class LearningObject(object):
             "recurso": None,
             "identificador": {
                 "catalogo": "URI",
-                "entrada": None #uri deste serviço
+                "entrada": "http://127.0.0.1:5000/"
             },
             "descricao": None
         }

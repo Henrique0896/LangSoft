@@ -39,8 +39,8 @@ def adicionarVideo(videoId):
     video = None
     try:
         video = youtube.retornarVideo(videoId)
-    except Exception as e:
-        flash("Erro ao buscar informações sobre vídeos na api: " + e.args )
+    except:
+        flash("Erro ao buscar informações sobre vídeos na api: ")
     learningObject = LearningObject(video)
     db.inserir("objetoAprendizagem", learningObject)
     reg = Registro()
@@ -64,6 +64,8 @@ def excluirVideo(objetoId):
 def listarVideo(objetoId):
     try:
         objetoAprendizagem = db.buscarObjeto('objetoAprendizagem', objetoId)
+        if not objetoAprendizagem['dados_tecnicos']['localizacao']:
+            objetoAprendizagem['dados_tecnicos']['localizacao'] = "http://127.0.0.1:5000/listar/" + objetoId
     except:
         flash("Objeto de aprendizagem não encontrado")
         return redirect(url_for("errorPage"))
@@ -109,3 +111,9 @@ def editar(objetoId):
     else:
         form = ManipulacaoForm.preencher(form, video)
     return render_template('atualizar.html', video=video, form=form)
+
+# Mostrar Documentação dos Objetos de Aprendizagem
+@app.route("/doc-oa", methods=['GET'])
+@login_required
+def documentacaoOa():
+    return render_template('doc-oa.html')
