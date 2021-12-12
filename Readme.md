@@ -1,26 +1,18 @@
-### Developed by:
-Henrique de Lima</br>
-<i>Douglas Sales </br>
-Caliny</br>
-Tiago Campos</br>
-</i>
+### Desenvolvido por:
+Henrique de Lima Barroso
+</br>
 
-<strong>Many thanks to:</strong></br>
-<i>Alessandro Vivas - for incentivating this study.</i>
+
+<strong>Agradecimento:</strong></br>
+<i>Alessandro Vivas - por incentivar estes estudos.</i>
 
 <i>UNIVERSIDADE FEDERAL DOS VALES DO JEQUITINHONHA E MUCURI (UFVJM) - CAMPUS JK.
-</br>March - 2021</i>
+</br>2022</i>
 
 
-### References:
-<a href="https://www.br.freelancer.com/community/articles/crud-operations-in-mongodb-using-python">https://www.br.freelancer.com/community/articles/crud-operations-in-mongodb-using-python </a><br />
-<a href="https://zetcode.com/python/pymongo/">https://zetcode.com/python/pymongo/ </a><br />
-<a href="https://docs.mongodb.com/manual/reference/">https://docs.mongodb.com/manual/reference/ </a><br />
-<a href="https://flask.palletsprojects.com/en/1.1.x/">https://flask.palletsprojects.com/en/1.1.x/ </a><br />
+### Configurações
 
-### Configuration
-
-First of all, you need to create a virtual environment for your project. You can achieve this by using the following command:
+A primeira coisa a ser feita é a criação do ambiente virtual para este projeto. Instale os pacotes caso ainda não tenha e depois crie o ambiente virtual:
 ```shell
 # Install these packages, case you don't already have it.
 sudo apt-get install python3-pip
@@ -29,18 +21,16 @@ sudo pip3 install virtualenv
 # Create the Virtual Environment
 virtualenv env
 ```
-
-We still need to activate the virtual environment, we can do this by issuing the following command to the system.
+Ative o ambiente virtual:
 ```shell
 source env/bin/activate
 ```
 
-Now that the environment is ready, we can install the project required packages.
+Instale os requisitos do sistema:
 ```shell
 pip install -r requirements.txt
 ```
-
-Now you need to install MongoDB Server in your machine. You can do this by using:
+Instale o MongoDB Server no seu sistema operacional:
 ```shell
 sudo apt install -y mongodb
 ```
@@ -50,12 +40,10 @@ sudo systemctl status mongodb
 ```
 
 
-### Running the project
-Now that we have the project properly configured, you can start the server with:
+### Rodando o projeto
+Inicie o servidor:
 ```shell
 python run.py
 ```
 </br>
-
-<strong><h2>HAPPY CODING!</h2></strong>
 
