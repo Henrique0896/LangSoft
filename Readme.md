@@ -34,7 +34,7 @@ Instale o MongoDB Server no seu sistema operacional:
 ```shell
 sudo apt install -y mongodb
 ```
-Check the installation by:
+Confira a instalação:
 ```shell
 sudo systemctl status mongodb
 ```
