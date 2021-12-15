@@ -62,12 +62,12 @@
         <li>geral</li>
         <li>ciclo_de_vida</li>
         <li>meta_metadados</li>
-        <li> metadados_tecnicos</li>
+        <li>dados_tecnicos</li>
         <li>aspectos_educacionais</li>
         <li>direitos</li>
         <li>relacoes</li>
+        <li>anotacoes</li>
         <li>classificacao</li>
-        <li>conteudo</li>
     </ul>
 
     </p>
@@ -79,7 +79,7 @@
         <div class="col-lg-6">
             <div class="card mb-4 py-3 border-left-primary">
                 <div class="card-body">
-                    /api/consulta/"campo"/"termo"
+                    /api/consulta/ &lt campo &gt</campo>/&lt termo &gt
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@
         <div class="col-lg-6">
             <div class="card mb-4 py-3 border-left-primary">
                 <div class="card-body">
-                    /api/adicionar/"videoID"
+                    /api/adicionar/&lt videoID &gt
                 </div>
             </div>
         </div>
@@ -121,6 +121,9 @@
         <li>geral-cobertura</li>
         <li>geral-estrutura</li>
         <li>geral-nivel_de_agregacao</li>
+        <li>geral-subnivel_de_agregacao</li>
+        <li>geral-outros_termos</li>
+        <li>geral-termos</li>
         <li>ciclo_de_vida-versao</li>
         <li>ciclo_de_vida-status</li>
         <li>ciclo_de_vida-contribuinte-entidade</li>
@@ -133,13 +136,17 @@
         <li>meta_metadados-contribuinte-papel</li>
         <li>meta_metadados-esquema_de_metadados</li>
         <li>meta_metadados-idioma</li>
-        <li>metadados_tecnicos-formato</li>
-        <li>metadados_tecnicos-tamanho</li>
-        <li>metadados_tecnicos-localizacao</li>
-        <li>metadados_tecnicos-requisitos</li>
-        <li>metadados_tecnicos-observacoes_de_Instalacoes</li>
-        <li>metadados_tecnicos-outros_requisitos_de_sistema</li>
-        <li>metadados_tecnicos-duracao</li>
+        <li>dados_tecnicos-formato</li>
+        <li>dados_tecnicos-tamanho</li>
+        <li>dados_tecnicos-localizacao</li>
+        <li>dados_tecnicos-requisitos</li>
+        <li>dados_tecnicos-ou_composto-tipo</li>
+        <li>dados_tecnicos-ou_composto-nome</li>
+        <li>dados_tecnicos-ou_composto-versao_minima</li>
+        <li>dados_tecnicos-ou_composto-versao_maxima</li>
+        <li>dados_tecnicos-observacoes_de_instalacao</li>
+        <li>dados_tecnicos-outros_requisitos_de_sistema</li>
+        <li>dados_tecnicos-duracao</li>
         <li>aspectos_educacionais-tipo_de_iteratividade</li>
         <li>aspectos_educacionais-tipo_de_recurso_de_aprendizado</li>
         <li>aspectos_educacionais-nivel_de_interatividade</li>
@@ -149,18 +156,29 @@
         <li>aspectos_educacionais-idade_recomendada</li>
         <li>aspectos_educacionais-grau_de_dificuldade</li>
         <li>aspectos_educacionais-tempo_de_aprendizado</li>
+        <li>aspectos_educacionais-intervalo_de_tempo_de_aprendizado</li>
         <li>aspectos_educacionais-descricao</li>
-        <li>aspectos_educacionais-linguage</li>
+        <li>aspectos_educacionais-linguagem</li>
+        <li>aspectos_educacionais-dominio_cognitivo</li>
+        <li>aspectos_educacionais-estrategia_cognitiva</li>
         <li>direitos-custo</li>
         <li>direitos-direitos_autorais</li>
         <li>direitos-descricao</li>
-        <li>relacoes-genero</li>
-        <li>relacoes-recurso-referencias</li>
-        <li>relacoes-recurso-links_externo</li>
-        <li>classificacao-finalidade</li>
-        <li>classificacao-diretorio</li>
+        <li>relacoes-tipo</li>
+        <li>relacoes-recurso</li>
+        <li>relacoes-identificador-catalogo</li>
+        <li>relacoes-identificador-entrada</li>
+        <li>relacoes-descricao</li>
+        <li>anotacoes-entidade</li>
+        <li>anotacoes-data</li>
+        <li>anotacoes-descricao</li>
+        <li>classificacao-proposito</li>
+        <li>classificacao-caminho_taxon-fonte</li>
+        <li>classificacao-caminho_taxon-taxon</li>
+        <li>classificacao-caminho_taxon-id</li>
+        <li>classificacao-caminho_taxon-entrada</li>
         <li>classificacao-descricao</li>
-        <li>classificacao-palavra_chave</li>
+        <li>classificacao-palavras_chave</li>
         <li>conteudo-data</li>
         <li>conteudo-entidade</li>
         <li>conteudo-imagens</li>
@@ -175,7 +193,7 @@
         <div class="col-lg-6">
             <div class="card mb-4 py-3 border-left-primary">
                 <div class="card-body">
-                    /api/editar/"videoId"/"campo"/"dados"
+                    /api/editar/&lt videoId &gt/&lt campo &gt/&lt dados &gt
                 </div>
             </div>
         </div>
@@ -194,7 +212,7 @@
         <div class="col-lg-6">
             <div class="card mb-4 py-3 border-left-primary">
                 <div class="card-body">
-                    /api/excluir/"id"
+                    /api/excluir/&lt id &gt
                 </div>
             </div>
         </div>
@@ -211,7 +229,24 @@
         <div class="col-lg-6">
             <div class="card mb-4 py-3 border-left-primary">
                 <div class="card-body">
-                    /api/registro-alteracao/"registroId"
+                    /api/registro-alteracao/&lt registroId &gt
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <h2 class="h4 mb-1 text-gray-800">Obter palavras chave dos últimos 100 comentários</h2>
+    <p class="mb-4">A rota recebe como parâmetro o id do objeto de aprendizado e devolve as palavras chave.</p>
+
+
+    <!-- Content Row -->
+    <div class="row">
+        <!-- Link -->
+        <div class="col-lg-6">
+            <div class="card mb-4 py-3 border-left-primary">
+                <div class="card-body">
+                    /api/palavras-chave/comentarios/&lt objetoId &gt"
                 </div>
             </div>
         </div>

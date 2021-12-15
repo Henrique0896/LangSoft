@@ -49,6 +49,8 @@ def consulta(campo, termo):
         return Response(informacoes, content_type="application/json; charset=utf-8")
 
 
+
+
 # Adicionar vídeo ao sistema
 @app.route("/api/adicionar/<videoId>", methods=['GET', 'POST'])
 def adicionarApi(videoId):
@@ -62,19 +64,6 @@ def adicionarApi(videoId):
     except:
         return ({"success:": False, "message": "Nao foi possível realizar a operação"})
     return Response({"success": True}, content_type="application/json; charset=utf-8")
-
-
-# Deletar vídeo do sistema
-@app.route("/api/excluir/<videoId>/", methods=['GET', 'POST'])
-def excluirVideoApi(videoId):
-    try:
-        [video] = db.filtrar('objetoAprendizagem', {"geral.id": videoId})
-        db.delete('objetoAprendizagem', video)
-        reg = Registro()
-        reg.registrarVideoExcluido(videoId, True)
-        return Response({"success": True}, content_type="application/json; charset=utf-8")
-    except:
-        return {"success": "false", "message": "Falha ao executar operação"}
 
 
 # Editar vídeo salvo no sistema
@@ -98,7 +87,20 @@ def editarVideoApi(videoId, campo, dados):
         return ({"success:": False, "message": "Nao foi possível realizar a operação de atualização"})
 
 
-# Retornar objeto de alteção
+# Deletar vídeo do sistema
+@app.route("/api/excluir/<videoId>/", methods=['GET', 'POST'])
+def excluirVideoApi(videoId):
+    try:
+        [video] = db.filtrar('objetoAprendizagem', {"geral.id": videoId})
+        db.delete('objetoAprendizagem', video)
+        reg = Registro()
+        reg.registrarVideoExcluido(videoId, True)
+        return Response({"success": True}, content_type="application/json; charset=utf-8")
+    except:
+        return {"success": "false", "message": "Falha ao executar operação"}
+
+
+# Retornar objeto de alteração
 @app.route("/api/registro-alteracao/<registroId>", methods=['GET'])
 @login_required
 def retornarRegistroAlteracao(registroId):
@@ -115,31 +117,7 @@ def documentacaoApi():
     return render_template('doc-api.html')
 
 
-
-# Pesquisar video
-@app.route("/api/lom/<termo>", methods=['GET'])
-@login_required
-def LomApi(termo):
-    video = None
-    youtube = Youtube()
-    video = youtube.retornarVideo(termo)
-    learningObject = LearningObject(video)
-    db.inserir("objetoAprendizagem", learningObject)
-    return "ok"
-
-# Pesquisar video
-@app.route("/api/youtube/<termo>", methods=['GET'])
-@login_required
-def pesquisarApi(termo):
-    video = None
-    youtube = Youtube()
-    try:
-        video = youtube.buscarListaVideos(termo)
-    except Exception as e:
-        return {"ERRO"}
-    return Response(json.dumps(video, default=json_util.default, ensure_ascii=False), content_type="application/json; charset=utf-8")
-
-# Pesquisar video
+# Obter palavras chave
 @app.route("/api/palavras-chave/comentarios/<objetoId>", methods=['GET'])
 @login_required
 def gerarPalavrasChaveComentarios(objetoId):
