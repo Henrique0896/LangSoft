@@ -10,7 +10,7 @@ class LearningObject(object):
             "descricao": video['informacoes']['items'][0]['snippet']['description'],
             "palavras_chave": None,
             "cobertura": None, #região
-            "estrutura": "Coleção",
+            "estrutura": "átomo",
             "nivel_de_agregacao": "2",
             "subnivel_de_agregacao": "e",
             "outros_termos": None,

@@ -47,7 +47,6 @@ class Youtube():
                 comentarios.append(infoComentario['snippet']['topLevelComment']['snippet']['textOriginal'])
         except:
             print("Erro ao buscar comentários do vídeo")
-        print(comentarios)
         return comentarios
 
     def retornarVideo(self, id):
